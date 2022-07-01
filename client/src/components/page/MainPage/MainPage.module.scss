@@ -1,0 +1,34 @@
+.main_banner {
+  height: 504px;
+}
+
+.content__container {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1170px;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main_baner_text {
+  & > h1 {
+    width: 100%;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+  }
+  & > p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    opacity: 0.8;
+  }
+}
+
+.main_baner_img{
+    max-width: 100%; 
+    width: 464px;
+}

@@ -1,0 +1,34 @@
+.avatar_circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  & > p {
+    font-style: normal;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+    color: #2c2d2e;
+    text-align: center;
+    opacity: 0.5;
+  }
+}
+
+.user_menu_profile {
+  display: flex;
+  align-items: center;
+
+  & > span {
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2c2d2e;
+  }
+}

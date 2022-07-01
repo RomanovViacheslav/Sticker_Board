@@ -1,0 +1,144 @@
+.content {
+  grid-area: 'content';
+  background: rgba(42, 47, 55, 0.02);
+  text-align: center;
+}
+
+.content__container {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1170px;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.user_menu {
+  width: 263px;
+  & > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.table_wrapper {
+  width: 100%;
+  margin-left: 40px;
+}
+
+.table_action {
+  position: relative;
+  transition: opacity 0.75s ease-out;
+  cursor: pointer;
+  & > ul {
+    list-style: none;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    padding-left: 0;
+    display: none;
+  }
+}
+
+.table_action:hover {
+  background: rgba(44, 45, 46, 0.04);
+  width: 32px;
+  height: 32px;
+  & > ul {
+    display: block;
+  }
+}
+
+.table_action_svg {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table_button {
+  width: 129px;
+  height: 40px;
+}
+
+.table_title {
+  text-align: left;
+  & > h2 {
+    margin: 0;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  & > span {
+    opacity: 0.6;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0;
+  }
+}
+
+//////////////search//////////////////////////////////
+
+.search_form {
+  position: relative;
+  width: 420px;
+}
+.search_input {
+  box-sizing: border-box;
+  border: 1px solid #4877f2;
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  padding-left: 10px;
+}
+
+.search_input:focus-visible {
+  border: 3px solid #4877f2;
+}
+
+.search_button {
+  background-color: none;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.search_icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 6px;
+  margin-right: 16px;
+}
+
+.search_icon_activ {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 6px;
+  margin-right: 16px;
+}
+
+.search_icon_activ path {
+  stroke: rgb(7, 69, 225);
+}
+
+.table_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/////////////////////// TABLE //////////////////////////////////
+.table {
+  margin-top: 24px;
+}

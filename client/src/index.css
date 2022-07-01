@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: 400;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  transition: none;
+}
+
+a:hover {
+  color: #3a95ff;
+}
+
+p {
+  margin-top: 14px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+/* инпут ant.design */
+
+/* .ant-input input {
+  background: rgba(42, 47, 55, 0.02);
+} */
+
+.ant-input-password:hover {
+  border: 1px solid rgba(42, 47, 55, 0.08) !important;
+  border-bottom: 1px solid #4877f2 !important;
+}
+
+.ant-input-affix-wrapper-focused {
+  border: 1px solid rgba(42, 47, 55, 0.08) !important;
+  border-radius: 4px 4px 0px 0px !important;
+  box-shadow: none !important;
+  border-bottom: 2px solid #4877f2 !important;
+  transition: all 0.3s ease !important;
+}
+
+/* чекбокс ant.design */
+
+.ant-checkbox-wrapper {
+  text-align: left;
+  display: flex;
+  margin-left: 24px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 0.8;
+}
+
+.ant-checkbox-inner {
+  margin-right: 4px;
+}
+
+.ant-checkbox-wrapper a {
+  text-decoration-line: underline;
+  color: #4877f2;
+}
+
+/* конопка ant.design */
+.ant-btn-primary {
+  height: 48px;
+  width: 316px;
+  background: #4877f2;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ant-btn-primary[disabled],
+.ant-btn-primary[disabled]:hover,
+.ant-btn-primary[disabled]:focus,
+.ant-btn-primary[disabled]:active {
+  color: #ffffff;
+  background: #a7d0ff;
+}
+
+/* таблица ant.design */
+.ant-table-thead {
+  background: none;
+  background-color: white !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 8px solid rgba(42, 47, 55, 0.02) !important;
+}
+
+.ant-table-thead > tr > th {
+  background: none;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: #2c2d2e;
+  opacity: 0.6;
+  border-bottom: 8px solid rgba(42, 47, 55, 0.02);
+  height: 40px;
+}
+
+@media screen and (max-width: 990px) {
+  .ant-btn-primary {
+    width: 300px;
+  }
+  .ant-input {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .ant-btn-primary {
+    width: 256px;
+  }
+}
