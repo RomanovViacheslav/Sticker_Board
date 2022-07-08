@@ -7,11 +7,12 @@ type UserMenuItemPropsType = {
   title: string;
   to: string;
   onClick?: () => void;
+  ads?: boolean;
 };
 
-const UserMenuItem = ({ svg, title, to, onClick }: UserMenuItemPropsType) => (
+const UserMenuItem = ({ svg, title, to, onClick, ads }: UserMenuItemPropsType) => (
   <li>
-    <Link to={to} className={style.user_menu_item} onClick={onClick}>
+    <Link to={to} className={!ads ? style.user_menu_item : `${style.user_menu_item} ${style.user_menu_activ}`} onClick={onClick}>
       <img src={svg} alt="" />
       <span>{title}</span>
     </Link>

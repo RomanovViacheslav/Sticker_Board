@@ -67,7 +67,7 @@ const AuthPage = () => {
               hasFeedback>
               <Input.Password placeholder="Пароль" className={style.form_input} />
             </FormItem>
-            {errorAPI && <span>{error}</span>}
+            {errorAPI && <span className={style.form_input_error}>{error}</span>}
             <FormItem>
               <Button disabled={isLoading} type="primary" htmlType="submit">
                 Войти

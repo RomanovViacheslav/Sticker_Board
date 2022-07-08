@@ -50,13 +50,8 @@ export const registration = async (
   try {
     const res = await axios.post(regUrl, { Name, surName, email, password });
 
-    console.log(res);
     return res.data;
   } catch (e: any) {
-    console.log(e);
-
-    console.log(e.message);
-
     return e.message;
   }
 };

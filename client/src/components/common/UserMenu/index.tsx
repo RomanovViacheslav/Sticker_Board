@@ -15,9 +15,10 @@ import { userClear } from '../../../store/userSlice/userSlice';
 type UserMenuPropsType = {
   admin: boolean;
   id?: number;
+  ads?: boolean;
 };
 
-const UserMenu = ({ admin, id }: UserMenuPropsType) => {
+const UserMenu = ({ admin, id, ads }: UserMenuPropsType) => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.user);
@@ -40,7 +41,7 @@ const UserMenu = ({ admin, id }: UserMenuPropsType) => {
   return (
     <ul className={style.user_menu}>
       <UserMenuProfile userName={userName} />
-      <UserMenuItem to="/" svg={bulletinIcon} title="Мои объявления" />
+      <UserMenuItem ads={ads} to="/admin" svg={bulletinIcon} title="Мои объявления" />
       {admin && <UserMenuItem to={`admin/${id}`} svg={adminIcon} title="Админ Панель" />}
       <UserMenuItem to="/" svg={exitIcon} title="Выход" onClick={logOut} />
     </ul>

@@ -63,8 +63,7 @@ const RegPage = () => {
                   dispatch(regError(result.message));
 
                   setErrorAPI(true);
-                }
-                if (result === 'Network Error') {
+                } else if (result === 'Network Error') {
                   dispatch(regError('Ошибка сервера'));
                   setErrorAPI(true);
                 } else {
@@ -167,7 +166,7 @@ const RegPage = () => {
                 <br /> <a href="/">Пользовательского соглашения</a>
               </Checkbox>
             </Form.Item>
-            {errorAPI && <span>{message}</span>}
+            {errorAPI && <span className={style.form_input_error}>{message}</span>}
             <FormItem>
               <Button disabled={buttonDisabled || isLoading} type="primary" htmlType="submit">
                 Создать аккаунт
