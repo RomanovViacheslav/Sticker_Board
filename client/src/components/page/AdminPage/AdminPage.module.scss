@@ -33,6 +33,7 @@
   position: relative;
   transition: opacity 0.75s ease-out;
   cursor: pointer;
+
   & > ul {
     list-style: none;
     margin: 0;
@@ -40,6 +41,23 @@
     right: 0;
     padding-left: 0;
     display: none;
+    z-index: 100;
+    transition: all 0.3s ease;
+    background-color: white;
+    & > li > a {
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      width: 242px;
+      height: 40px;
+      padding-left: 24px;
+      text-align: start;
+      border: 1px solid rgba(44, 45, 46, 0.08);
+    }
+    & > li > a:hover {
+      background-color: rgba(44, 45, 46, 0.04);
+      color: black;
+    }
   }
 }
 
@@ -47,6 +65,7 @@
   background: rgba(44, 45, 46, 0.04);
   width: 32px;
   height: 32px;
+
   & > ul {
     display: block;
   }
@@ -83,6 +102,10 @@
     line-height: 24px;
     margin: 0;
   }
+}
+
+.table_search {
+  display: flex;
 }
 
 //////////////search//////////////////////////////////
@@ -144,7 +167,175 @@
 }
 
 .table_row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   background-color: white;
   margin-bottom: 8px;
+  padding-left: 24px;
+  padding-right: 28px;
+  justify-items: start;
+  align-items: center;
+}
+
+.table_row_top {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 0.6;
+  height: 40px;
+}
+
+.table_row_main {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  height: 80px;
+  & > h2 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+.table_menu {
+  width: 100px;
+}
+
+.table_name {
+  display: flex;
+  align-items: center;
+  & > a {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  & > a:hover {
+    & > svg > g {
+      opacity: 9;
+    }
+  }
+}
+
+.table_publication {
+}
+
+.table_publication_item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/////////////////////// FILTER //////////////////////////////////
+
+.filter {
+  padding-left: 8px;
+  position: relative;
+}
+
+.filter_button {
+  display: flex;
+  width: 153px;
+  height: 40px;
+  background: rgba(42, 47, 55, 0.08);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  align-items: center;
+  transition: none;
+
+  & > div {
+    width: 24px;
+    height: 24px;
+    padding-left: 16px;
+  }
+}
+
+.filter_button:hover {
+  color: #4877f2;
+  background: rgba(42, 47, 55, 0.08);
+  transition: all 0.3s;
+  & > div > svg > path {
+    stroke: #4877f2;
+    transition: all 0.3s;
+  }
+}
+
+.filter_button:active {
+  background: rgba(42, 47, 55, 0.08);
+  & > div > svg > path {
+    stroke: #4877f2;
+  }
+}
+
+.filter_button:focus {
+  background: rgba(42, 47, 55, 0.08);
+  & > div > svg > path {
+    stroke: #4877f2;
+  }
+}
+.filter_menu {
+  position: absolute;
+  right: 0;
+
+  z-index: 100;
+  width: 337px;
+  // height: 424px;
+  background: #ffffff;
+  border: 1px solid rgba(44, 45, 46, 0.08);
+  padding: 24px;
+}
+
+.filter_menu_column {
+  text-align: start;
+  margin-bottom: 24px;
+
+  & > div > input {
+    width: 24px;
+    height: 24px;
+    background-color: rgba(44, 45, 46, 0.08);
+    margin-right: 16px;
+  }
+}
+.filter_menu_span {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 24px;
+}
+
+.filter_checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter_menu_checkboxes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter_menu_buttons {
+  text-align: start;
+  & > button {
+    margin-right: 24px;
+    border-radius: 4px;
+  }
+}
+
+.filter_menu_buttons_1 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
+  width: 103px;
+  height: 40px;
+}
+
+.filter_menu_buttons_2 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #3a95ff;
+  width: 103px;
+  height: 40px;
 }
