@@ -13,10 +13,12 @@ import getUserProfile from './store/userSlice/userActions';
 import { loginSuccess } from './store/loginSlice/loginSlice';
 import AuthHoc from './components/HOC/AuthHoc';
 import MainContainer from './container/MainContainer/MainContainer';
+import { getAdsSuccess } from './store/adsSlice/adsSlice';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
       dispatch(getUserProfile());

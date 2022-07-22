@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import { getAdsSuccess } from '../../../store/adsSlice/adsSlice';
 import style from './AdminPage.module.scss';
 
 type TablePropsType = {
   dataAds: any[];
 };
 
-const Table = ({ dataAds }: TablePropsType) => {
-  const [dataTable, setDataTable] = useState(dataAds);
+const Table = () => {
+  const { ads } = useAppSelector((state) => state.ads);
+  const [dataTable, setDataTable] = useState(ads);
+
   const [directionSort, setDirectionSort] = useState(false);
   const sortIcon = (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,10 +22,15 @@ const Table = ({ dataAds }: TablePropsType) => {
     </svg>
   );
 
+  useLayoutEffect(() => {
+    setDataTable(ads);
+  }, [ads.length]);
+
   const sortName = () => {
+    const adsData = [...ads];
     if (directionSort === false) {
       setDataTable(
-        dataAds.sort((a, b) => {
+        adsData.sort((a, b) => {
           if (a.title < b.title) {
             return -1;
           }
@@ -36,7 +45,7 @@ const Table = ({ dataAds }: TablePropsType) => {
     }
     if (directionSort === true) {
       setDataTable(
-        dataAds.sort((a, b) => {
+        adsData.sort((a, b) => {
           if (a.title > b.title) {
             return -1;
           }
@@ -50,6 +59,8 @@ const Table = ({ dataAds }: TablePropsType) => {
       setDirectionSort(false);
     }
   };
+
+  console.log(dataTable);
 
   return (
     <div className={style.table}>
@@ -65,7 +76,7 @@ const Table = ({ dataAds }: TablePropsType) => {
         <div className={style.table_publication}>Публикация</div>
       </div>
       {dataTable.map((el) => (
-        <div className={`${style.table_row} ${style.table_row_main}`}>
+        <div key={el.key} className={`${style.table_row} ${style.table_row_main}`}>
           <h2 className={style.table_name_item}>{el.title}</h2>
           <span className={style.table_date_item}>{el.category}</span>
           <span className={style.table_publication_item}>{el.date}</span>

@@ -1,6 +1,7 @@
-import { Button } from 'antd';
-import React, { useState } from 'react';
-import { useAppSelector } from '../../../hooks/redux-hooks';
+import { Button, Spin } from 'antd';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import { getAdsSuccess } from '../../../store/adsSlice/adsSlice';
 import UserMenu from '../../common/UserMenu';
 import style from './AdminPage.module.scss';
 import Filter from './Filter';
@@ -9,34 +10,34 @@ import Table from './Table';
 
 const AdminPage = () => {
   const [search, setSearch] = useState('');
+  const dispatch = useAppDispatch();
+  const { ads } = useAppSelector((state) => state.ads);
 
   const { user } = useAppSelector((state) => state.user);
-  const onSearch = () => console.log('поиск');
-
   const dataAds = [
     {
-      key: '1',
+      key: '234',
       title: 'Чепчик',
       category: 'Одежда',
       date: '12 апреля 2022',
       publication: 'Да',
     },
     {
-      key: '2',
+      key: '2224',
       title: 'Самовар',
       category: 'Товары для дома',
       date: '12 апреля 2022',
       publication: 'Да',
     },
     {
-      key: '3',
+      key: '324234',
       title: 'Стиральная машина LG',
       category: 'Товары для дома',
       date: '11 апреля 2022',
       publication: 'Да',
     },
     {
-      key: '4',
+      key: '5235235',
       title: 'Часы Rolex',
       category: 'Аксессуары',
       date: '10 апреля 2022',
@@ -44,6 +45,10 @@ const AdminPage = () => {
     },
   ];
 
+  useLayoutEffect(() => {
+    dispatch(getAdsSuccess(dataAds));
+  }, []);
+  console.log(ads);
   return (
     <main className={style.content}>
       <div className={style.content__container}>
@@ -62,14 +67,13 @@ const AdminPage = () => {
           </div>
           <div className={style.table_search}>
             <Search value={search} setValue={setSearch} />
-            <Filter dataAds={dataAds} />
+            <Filter />
           </div>
 
-          <Table dataAds={dataAds} />
+          <Table />
         </div>
       </div>
     </main>
   );
 };
-
 export default AdminPage;

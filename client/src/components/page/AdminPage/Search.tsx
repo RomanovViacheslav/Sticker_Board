@@ -1,5 +1,10 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+
 import React, { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import { getAdsFilter } from '../../../store/adsSlice/adsSlice';
 import style from './AdminPage.module.scss';
 
 type SearchPropsType = {
@@ -8,10 +13,27 @@ type SearchPropsType = {
 };
 
 const Search = ({ value, setValue }: SearchPropsType) => {
+  const { ads } = useAppSelector((state) => state.ads);
   const [focus, setFocus] = useState(true);
-
+  const dispatch = useAppDispatch();
   const handler = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
+  };
+  const handlerClick = () => {
+    const filterSearch2 = ads.filter((elem) =>
+      elem.title.toUpperCase().includes(value.toUpperCase())
+    );
+    const searchResult = filterSearch2.sort((a, b) => {
+      if (a.date > b.date) {
+        return -1;
+      }
+      if (a.date < b.date) {
+        return 1;
+      }
+
+      return 0;
+    });
+    dispatch(getAdsFilter(searchResult));
   };
   const onMouseEnterHandler = () => {
     setFocus(false);
@@ -46,9 +68,7 @@ const Search = ({ value, setValue }: SearchPropsType) => {
 
       <Link
         to="#!"
-        onClick={() => {
-          console.log(value);
-        }}
+        onClick={handlerClick}
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeave}
         className={focus ? style.search_icon : style.search_icon_activ}>
