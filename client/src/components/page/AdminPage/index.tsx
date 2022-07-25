@@ -1,5 +1,6 @@
 import { Button, Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { getAdsSuccess } from '../../../store/adsSlice/adsSlice';
 import UserMenu from '../../common/UserMenu';
@@ -12,8 +13,13 @@ const AdminPage = () => {
   const [search, setSearch] = useState('');
   const dispatch = useAppDispatch();
   const { ads } = useAppSelector((state) => state.ads);
-
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
+
+  const handlerButton = () => {
+    navigate('/adding');
+  };
+
   const dataAds = [
     {
       key: '234',
@@ -48,7 +54,7 @@ const AdminPage = () => {
   useLayoutEffect(() => {
     dispatch(getAdsSuccess(dataAds));
   }, []);
-  console.log(ads);
+
   return (
     <main className={style.content}>
       <div className={style.content__container}>
@@ -59,9 +65,9 @@ const AdminPage = () => {
           <div className={style.table_top}>
             <div className={style.table_title}>
               <h2>Объявления </h2>
-              <span>Всего:</span>
+              <span>Всего:{ads.length}</span>
             </div>
-            <Button className={style.table_button} type="primary">
+            <Button onClick={handlerButton} className={style.table_button} type="primary">
               Добавить +
             </Button>
           </div>

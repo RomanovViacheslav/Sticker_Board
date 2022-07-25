@@ -8,12 +8,12 @@ import PageWrapper from './components/common/PageWrapper';
 import AuthContainer from './container/AuthContainer';
 import AdminContainer from './container/AdminContainer';
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
-import { getUser } from './network/user';
+
 import getUserProfile from './store/userSlice/userActions';
-import { loginSuccess } from './store/loginSlice/loginSlice';
+
 import AuthHoc from './components/HOC/AuthHoc';
 import MainContainer from './container/MainContainer/MainContainer';
-import { getAdsSuccess } from './store/adsSlice/adsSlice';
+import AddingContainer from './container/AddingContainer';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
@@ -36,6 +36,14 @@ const App = () => {
           element={
             <AuthHoc>
               <AdminContainer />
+            </AuthHoc>
+          }
+        />
+        <Route
+          path="adding"
+          element={
+            <AuthHoc>
+              <AddingContainer />
             </AuthHoc>
           }
         />
