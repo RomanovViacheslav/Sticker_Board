@@ -65,3 +65,86 @@
     height: 40px;
   }
 }
+
+.ads_form_wrap {
+  margin-top: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 37px;
+  padding-bottom: 37px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.ads_form_wrap input {
+  background: rgba(42, 47, 55, 0.02);
+}
+
+.form_title label {
+  opacity: 0.6;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.form_title {
+  text-align: start;
+}
+
+.form_input {
+  width: 100%;
+  height: 64px;
+  background: rgba(42, 47, 55, 0.02);
+  border: 1px solid rgba(42, 47, 55, 0.08);
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  margin: 0;
+}
+
+.form_option_price {
+  & > span {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+}
+.form_option {
+  margin-right: 2.5% !important;
+  width: 47.5% !important;
+  text-align: start;
+  & > div > label {
+    opacity: 0.6;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+.form_price {
+  margin-left: 2.5%;
+  width: 47.5% !important;
+  text-align: start;
+  & > div > label {
+    opacity: 0.6;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+.form_input_price {
+  height: 64px;
+  background: rgba(42, 47, 55, 0.02);
+  border: 1px solid rgba(42, 47, 55, 0.08);
+  border-radius: 4px;
+  transition: all 0.5s ease;
+}
+
+.form_text_area {
+  height: 128px !important;
+  background: rgba(42, 47, 55, 0.02);
+  border: 1px solid rgba(42, 47, 55, 0.08);
+  border-radius: 4px;
+  transition: all 0.5s ease;
+}
+
+

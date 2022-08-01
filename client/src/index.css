@@ -110,6 +110,38 @@ a {
   height: 40px;
 }
 
+/* .ant-select-selection-item {
+  height: 64px;
+  background: rgba(42, 47, 55, 0.02);
+  border: 1px solid rgba(42, 47, 55, 0.08);
+  border-radius: 4px;
+  transition: all 0.5s ease;
+} */
+
+.ant-select-item ant-select-item-option {
+  height: 64px !important;
+  background: rgba(42, 47, 55, 0.02) !important;
+  border: 1px solid rgba(42, 47, 55, 0.08) !important;
+  border-radius: 4px !important;
+  transition: all 0.5s ease !important;
+}
+
+.ant-select-selector {
+  height: 64px !important;
+  background: rgba(42, 47, 55, 0.02) !important;
+  border: 1px solid rgba(42, 47, 55, 0.08) !important;
+  border-radius: 4px !important;
+  transition: all 0.5s ease !important;
+  display: flex;
+  align-items: center;
+  text-align: start;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+
+
 @media screen and (max-width: 990px) {
   .ant-btn-primary {
     width: 300px;
