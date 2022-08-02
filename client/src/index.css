@@ -140,6 +140,11 @@ a {
   line-height: 24px;
 }
 
+.ant-form-item-control-input {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 
 
 @media screen and (max-width: 990px) {
