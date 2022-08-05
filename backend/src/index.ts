@@ -1,13 +1,11 @@
 import * as hapi from "@hapi/hapi";
-import routes from "./routes";
+import routes from "./routes/index";
 const HapiNowAuth = require("@now-ims/hapi-now-auth");
-import dataSource from "../ormconfig";
+
 const sequelize = require("./database");
 const models = require("../src/models/models.ts");
 
-const bcrypt = require("bcrypt");
-
-import * as users from "./userController";
+import * as users from "./controllers/userController";
 
 const srv = hapi.server({
   port: 3001,

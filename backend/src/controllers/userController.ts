@@ -1,4 +1,4 @@
-const { User } = require("../src/models/models.ts");
+const { User } = require("../models/models");
 const bcrypt = require("bcrypt");
 import { v4 as uuidv4 } from "uuid";
 

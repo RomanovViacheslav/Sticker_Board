@@ -100,7 +100,7 @@ const AddingPage = () => {
                 phone: '+7',
                 photo: '',
                 location: '',
-                radio: '',
+                published: '',
                 options: 'Выберите категорию',
                 description: '',
               }}
@@ -263,7 +263,7 @@ const AddingPage = () => {
                   />
                 </div>
                 {admin && (
-                  <FormItem name="radio" label="Публикация " className={style.form_title}>
+                  <FormItem name="published" label="Публикация " className={style.form_title}>
                     <Radio.Group className={style.form_radio}>
                       <Radio value="Да"> Да </Radio>
                       <Radio value="Нет"> Нет </Radio>

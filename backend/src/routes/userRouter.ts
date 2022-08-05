@@ -1,5 +1,5 @@
 import * as joi from "joi";
-import * as users from "./userController";
+import * as users from "../controllers/userController";
 import * as hapi from "@hapi/hapi";
 import { number } from "joi";
 

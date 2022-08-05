@@ -11,6 +11,22 @@ const User = sequelize.define("user", {
   role: { type: DataTypes.STRING, defaultValue: "USER" },
 });
 
+const Product = sequelize.define("product", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  title: { type: DataTypes.STRING, allowNull: false },
+  price: { type: DataTypes.INTEGER, allowNull: false },
+  phone: { type: DataTypes.STRING, allowNull: false },
+  photo: { type: DataTypes.STRING },
+  location: { type: DataTypes.STRING, allowNull: false },
+  category: { type: DataTypes.STRING, allowNull: false },
+  description: { type: DataTypes.STRING, allowNull: false },
+  published: { type: DataTypes.STRING, defaultValue: "NO" },
+});
+
+User.hasMany(Product);
+Product.belongsTo(User);
+
 module.exports = {
   User,
+  Product,
 };
