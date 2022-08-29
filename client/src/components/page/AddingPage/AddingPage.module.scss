@@ -45,8 +45,8 @@
 }
 
 .ads_form_top {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
   display: flex;
   background-color: white;
   margin-top: 30px;
@@ -150,13 +150,17 @@
 }
 
 .form_radio {
-    width: 100%;
-    height: 64px;
-    background: rgba(42, 47, 55, 0.02);
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    & > label {
-        padding-left: 24px;
-    }
+  width: 100%;
+  height: 64px;
+  background: rgba(42, 47, 55, 0.02);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  & > label {
+    padding-left: 24px;
+  }
+}
+
+.form_input_error {
+  color: red;
 }

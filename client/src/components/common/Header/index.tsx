@@ -8,12 +8,11 @@ import logo from './Logo.png';
 const Header: React.FC = ({ children }) => {
   const { isLoading, user, error, isUser } = useAppSelector((state) => state.user);
 
-  const userName = 'Профиль';
   const [admin, setAdmin] = useState(false);
   const [hover, setHover] = useState(false);
   const dataUser: any = user;
 
-  const handleMouseEnter = (e: React.SyntheticEvent) => {
+  const handleMouseEnter = () => {
     setHover(true);
     if (dataUser.role === 'ADMIN') {
       setAdmin(true);

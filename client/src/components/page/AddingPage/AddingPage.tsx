@@ -1,6 +1,6 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable jsx-a11y/iframe-has-title */
-import { Button, Form, Input, message, Radio, RadioChangeEvent, Select, Upload } from 'antd';
+import { Button, Form, Input, Radio, RadioChangeEvent, Select, Upload } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import TextArea from 'antd/lib/input/TextArea';
 import { Option } from 'antd/lib/mentions';
@@ -13,11 +13,23 @@ import { UploadFile } from 'antd/lib/upload/interface';
 import UserMenu from '../../common/UserMenu';
 import style from './AddingPage.module.scss';
 import { useAppSelector } from '../../../hooks/redux-hooks';
+import { createAd } from '../../../network/ads';
 
-const AddingPage = () => {
-  const { user } = useAppSelector((state) => state.user);
+type AddingPropsType = {
+  isAdmin: boolean;
+  sendData: (
+    title: string,
+    price: string,
+    phone: string,
+    file: any,
+    location: string,
+    category: string,
+    description: string,
+    published?: string
+  ) => void;
+};
 
-  const [admin, setAdmin] = useState(true);
+const AddingPage = ({ isAdmin, sendData }: AddingPropsType) => {
   const category = [
     'Автомобили',
     'Аксессуары',
@@ -27,58 +39,30 @@ const AddingPage = () => {
     'Техника',
     'Товары для дома',
   ];
-  const { Dragger } = Upload;
+
   const navigate = useNavigate();
   const [titleProduct, setTitleProduct] = useState('Название');
   const [form] = Form.useForm();
   const handlerLink = () => {
     navigate(-1);
   };
-
+  const { isLoading, message, status } = useAppSelector((state) => state.createAd);
   const handler = (event: ChangeEvent<HTMLInputElement>) => {
     setTitleProduct(event.target.value);
   };
+  // const normFile = (e: any) => {
+  //   if (Array.isArray(e)) {
+  //     return e;
+  //   }
+  //   return e && e.fileList;
+  // };
 
-  const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
-  };
-
-  const beforeUpload = (file: RcFile) => {
-    const isJpgOrPng =
-      file.type === 'image/jpeg' ||
-      file.type === 'image/png' ||
-      file.type === 'image/WebP' ||
-      file.type === 'image/jpg';
-    if (!isJpgOrPng) {
-      message.error('Вы можете загружать только JPEG, JPG, PNG, WebP файлы!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Фото не может быть больше 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
-  };
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>();
-
-  const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
-  const onFinish = (value: any) => {
+  const onFinish = async (value: any) => {
     console.log(value);
+    const { title, price, phone, photo, location, published, options, description } = value;
+    const { file } = photo;
+
+    sendData(title, price, phone, file, location, options, description, published);
   };
 
   return (
@@ -100,23 +84,23 @@ const AddingPage = () => {
                 phone: '+7',
                 photo: '',
                 location: '',
-                published: '',
-                options: 'Выберите категорию',
+                published: 'Нет',
+                options: null,
                 description: '',
               }}
               form={form}
               layout="vertical"
               autoComplete="off"
-              onFinish={(value) => {
-                onFinish(value);
+              onFinish={async (value) => {
+                await onFinish(value);
               }}>
               <div className={style.ads_form_top}>
                 <span>{titleProduct}</span>
-                <Button type="primary" htmlType="submit">
+                <Button disabled={isLoading} type="primary" htmlType="submit">
                   Сохранить
                 </Button>
               </div>
-
+              {status === 'error' && <span className={style.form_input_error}>{message}</span>}
               <div className={style.ads_form_wrap}>
                 <FormItem
                   className={style.form_title}
@@ -148,7 +132,7 @@ const AddingPage = () => {
                     name="options"
                     label="Категория"
                     className={style.form_option}>
-                    <Select>
+                    <Select placeholder="Выберите категорию">
                       {category.map((elem) => (
                         <Select.Option key={elem} value={String(elem)}>
                           {elem}
@@ -223,17 +207,20 @@ const AddingPage = () => {
                   name="photo"
                   label="Фотография"
                   className={style.form_title}>
-                  <Dragger maxCount={1} beforeUpload={beforeUpload} onChange={handleChange}>
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
+                  <Upload.Dragger
+                    maxCount={1}
+                    listType="picture"
+                    action="http://localhost:3000/adding"
+                    accept=".png,.jpg,.jpeg,.webp"
+                    beforeUpload={() => false}>
+                    <p className="ant-upload-drag-icon">{/* <InboxOutlined /> */}</p>
                     <p className="ant-upload-text">
                       Нажмите или перетащите файл в эту область, чтобы загрузить
                     </p>
                     <p className="ant-upload-hint">
                       Ограничение по объему 2 МБ, количество 1 фото, форматы: JPEG, JPG, PNG, WebP
                     </p>
-                  </Dragger>
+                  </Upload.Dragger>
                 </FormItem>
 
                 <FormItem
@@ -262,7 +249,7 @@ const AddingPage = () => {
                     scrolling="no"
                   />
                 </div>
-                {admin && (
+                {isAdmin && (
                   <FormItem name="published" label="Публикация " className={style.form_title}>
                     <Radio.Group className={style.form_radio}>
                       <Radio value="Да"> Да </Radio>

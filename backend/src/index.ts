@@ -6,6 +6,7 @@ const sequelize = require("./database");
 const models = require("../src/models/models.ts");
 
 import * as users from "./controllers/userController";
+const inert = require("@hapi/inert");
 
 const srv = hapi.server({
   port: 3001,
@@ -13,10 +14,13 @@ const srv = hapi.server({
     cors: {
       origin: ["*"],
     },
+    // files: {
+    //   relativeTo: "./upload/",
+    // },
   },
 });
 
-const plugins: any[] = [HapiNowAuth];
+const plugins: any[] = [HapiNowAuth, inert];
 
 srv.register(plugins).then(() => {
   srv.auth.strategy("userauth", "hapi-now-auth", {
