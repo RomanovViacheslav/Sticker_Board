@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const createUrl = 'http://localhost:3001/add';
+const getAdsUserUrl = 'http://localhost:3001/product-user';
 
 export const createAd = async (
   title: string,
@@ -38,4 +39,19 @@ export const createAd = async (
   }
 };
 
-export const getAd = () => {};
+export const getAdsUser = async () => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const res = await axios.get(getAdsUserUrl, config);
+
+    return res?.data;
+  } catch (e: any) {
+    console.log(e.message);
+
+    return e.message;
+  }
+};

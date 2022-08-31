@@ -7,18 +7,18 @@ import { getAdsFilter, getAdsSuccess } from '../../../store/adsSlice/adsSlice';
 import style from './AdminPage.module.scss';
 
 type FilterPropsType = {
-  dataAds: any[];
+  getProductsUser: () => void;
 };
 
-const Filter = () => {
+const Filter = ({ getProductsUser }: FilterPropsType) => {
   const [menuFilter, setMenuFilter] = useState(false);
-  const { ads } = useAppSelector((state) => state.ads);
+  const { filterAds } = useAppSelector((state) => state.ads);
   const dispatch = useAppDispatch();
   const [checkedPublication, setCheckedPublication] = useState<any[]>([]);
   const [checkedСategory, setCheckedСategory] = useState<any[]>([]);
 
-  const uniqCategory = Array.from(new Set(ads.map((el) => el.category)));
-  const uniqPublication = Array.from(new Set(ads.map((el) => el.publication)));
+  const uniqCategory = Array.from(new Set(filterAds.map((el) => el.category)));
+  const uniqPublication = Array.from(new Set(filterAds.map((el) => el.publication)));
 
   const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
     let updatedListPubl = [...checkedPublication];
@@ -42,45 +42,15 @@ const Filter = () => {
     setCheckedPublication(updatedListPubl);
   };
 
-  const dataAds = [
-    {
-      key: '1',
-      title: 'Чепчик',
-      category: 'Одежда',
-      date: '12 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '2',
-      title: 'Самовар',
-      category: 'Товары для дома',
-      date: '12 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '3',
-      title: 'Стиральная машина LG',
-      category: 'Товары для дома',
-      date: '11 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '4',
-      title: 'Часы Rolex',
-      category: 'Аксессуары',
-      date: '10 апреля 2022',
-      publication: 'Нет',
-    },
-  ];
   const resetFilter = () => {
     setCheckedСategory([]);
     setCheckedPublication([]);
-    dispatch(getAdsSuccess(dataAds));
+    getProductsUser();
   };
 
   const applyFilter = () => {
-    const filterCategory = ads.filter((item) => checkedСategory.includes(item.category));
-    const filterPublic = ads.filter((item) => checkedPublication.includes(item.publication));
+    const filterCategory = filterAds.filter((item) => checkedСategory.includes(item.category));
+    const filterPublic = filterAds.filter((item) => checkedPublication.includes(item.publication));
     let filterData: any = [];
 
     if (checkedPublication.length === 0) {

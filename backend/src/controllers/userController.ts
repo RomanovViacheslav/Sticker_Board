@@ -54,7 +54,7 @@ export async function login(req) {
   } else {
     const sessionId = uuidv4();
     sessions.set(sessionId, {
-      isAdmin: user.role,
+      isAdmin: user.role === 'ADMIN',
       userId: user.id,
     });
 

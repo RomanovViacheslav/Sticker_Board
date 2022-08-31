@@ -48,3 +48,19 @@ export async function addProduct(req, userId) {
     return e;
   }
 }
+
+export async function getProductsUser(isAdmin, userId) {
+  const limit = 8;
+
+  if (isAdmin) {
+    const productUser = await Product.findAndCountAll({ limit });
+    return productUser;
+  } else {
+    const productUser = await Product.findAndCountAll({
+      where: { userId },
+      limit,
+    });
+
+    return productUser;
+  }
+}

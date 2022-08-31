@@ -20,7 +20,7 @@ const Product = sequelize.define("product", {
   location: { type: DataTypes.STRING, allowNull: false },
   category: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
-  published: { type: DataTypes.STRING, defaultValue: "NO" },
+  published: { type: DataTypes.STRING, defaultValue: "Нет" },
 });
 
 User.hasMany(Product);

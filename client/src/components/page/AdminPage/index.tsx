@@ -9,51 +9,20 @@ import Filter from './Filter';
 import Search from './Search';
 import Table from './Table';
 
-const AdminPage = () => {
+type AdminPropsType = {
+  getProductsUser: () => void;
+};
+
+const AdminPage = ({ getProductsUser }: AdminPropsType) => {
   const [search, setSearch] = useState('');
   const dispatch = useAppDispatch();
-  const { ads } = useAppSelector((state) => state.ads);
+  const { filterAds } = useAppSelector((state) => state.ads);
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
 
   const handlerButton = () => {
     navigate('/adding');
   };
-
-  const dataAds = [
-    {
-      key: '234',
-      title: 'Чепчик',
-      category: 'Одежда',
-      date: '12 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '2224',
-      title: 'Самовар',
-      category: 'Товары для дома',
-      date: '12 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '324234',
-      title: 'Стиральная машина LG',
-      category: 'Товары для дома',
-      date: '11 апреля 2022',
-      publication: 'Да',
-    },
-    {
-      key: '5235235',
-      title: 'Часы Rolex',
-      category: 'Аксессуары',
-      date: '10 апреля 2022',
-      publication: 'Нет',
-    },
-  ];
-
-  useLayoutEffect(() => {
-    dispatch(getAdsSuccess(dataAds));
-  }, []);
 
   return (
     <main className={style.content}>
@@ -65,7 +34,7 @@ const AdminPage = () => {
           <div className={style.table_top}>
             <div className={style.table_title}>
               <h2>Объявления </h2>
-              <span>Всего:{ads.length}</span>
+              <span>Всего:{filterAds.length}</span>
             </div>
             <Button onClick={handlerButton} className={style.table_button} type="primary">
               Добавить +
@@ -73,7 +42,7 @@ const AdminPage = () => {
           </div>
           <div className={style.table_search}>
             <Search value={search} setValue={setSearch} />
-            <Filter />
+            <Filter getProductsUser={getProductsUser} />
           </div>
 
           <Table />

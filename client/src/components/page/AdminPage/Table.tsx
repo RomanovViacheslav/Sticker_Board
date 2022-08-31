@@ -9,8 +9,8 @@ type TablePropsType = {
 };
 
 const Table = () => {
-  const { ads } = useAppSelector((state) => state.ads);
-  const [dataTable, setDataTable] = useState(ads);
+  const { filterAds } = useAppSelector((state) => state.ads);
+  const [dataTable, setDataTable] = useState(filterAds);
 
   const [directionSort, setDirectionSort] = useState(false);
   const sortIcon = (
@@ -23,11 +23,11 @@ const Table = () => {
   );
 
   useLayoutEffect(() => {
-    setDataTable(ads);
-  }, [ads.length]);
+    setDataTable(filterAds);
+  }, [filterAds.length]);
 
   const sortName = () => {
-    const adsData = [...ads];
+    const adsData = [...filterAds];
     if (directionSort === false) {
       setDataTable(
         adsData.sort((a, b) => {
@@ -59,8 +59,6 @@ const Table = () => {
       setDirectionSort(false);
     }
   };
-
-  console.log(dataTable);
 
   return (
     <div className={style.table}>

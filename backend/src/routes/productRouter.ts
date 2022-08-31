@@ -38,6 +38,21 @@ export default [
       );
     },
   },
+  {
+    method: "GET",
+    path: "/product-user",
+    options: {
+      auth: {
+        strategy: "userauth",
+      },
+    },
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.getProductsUser(
+        request.auth.credentials.isAdmin,
+        request.auth.credentials.userId
+      );
+    },
+  },
 
   {
     method: "GET",
@@ -46,6 +61,21 @@ export default [
       directory: {
         path: "upload",
       },
+    },
+  },
+  {
+    method: "GET",
+    path: "/product-public",
+    options: {
+      auth: {
+        strategy: "userauth",
+      },
+    },
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.addProduct(
+        request.payload,
+        request.auth.credentials.userId
+      );
     },
   },
 ];
