@@ -49,16 +49,18 @@ export async function addProduct(req, userId) {
   }
 }
 
-export async function getProductsUser(isAdmin, userId) {
-  const limit = 8;
-
+export async function getProductsUser(isAdmin, userId, limit, page) {
+  limit = limit || 8;
+  page = page || 1;
+  let offset = page * limit - limit;
   if (isAdmin) {
-    const productUser = await Product.findAndCountAll({ limit });
+    const productUser = await Product.findAndCountAll({ limit, offset });
     return productUser;
   } else {
     const productUser = await Product.findAndCountAll({
       where: { userId },
       limit,
+      offset,
     });
 
     return productUser;

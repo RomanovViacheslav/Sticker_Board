@@ -145,7 +145,13 @@ a {
   height: 100% !important;
 }
 
+.ant-pagination-item-active{
+  border-color: #4877f2 !important;
+}
 
+.ant-pagination-item-active a {
+  color: #4877f2 !important;
+}
 
 @media screen and (max-width: 990px) {
   .ant-btn-primary {

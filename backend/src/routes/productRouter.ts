@@ -49,7 +49,9 @@ export default [
     handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
       return products.getProductsUser(
         request.auth.credentials.isAdmin,
-        request.auth.credentials.userId
+        request.auth.credentials.userId,
+        request.query.limit,
+        request.query.page
       );
     },
   },

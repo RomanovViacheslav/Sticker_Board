@@ -106,8 +106,9 @@
 
 .table_search {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 //////////////search//////////////////////////////////
 
 .search_form {
@@ -225,6 +226,9 @@
 }
 
 /////////////////////// FILTER //////////////////////////////////
+.filter_container{
+  display: flex;
+}
 
 .filter {
   padding-left: 8px;

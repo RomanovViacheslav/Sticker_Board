@@ -18,7 +18,7 @@ const Filter = ({ getProductsUser }: FilterPropsType) => {
   const [checkedСategory, setCheckedСategory] = useState<any[]>([]);
 
   const uniqCategory = Array.from(new Set(filterAds.map((el) => el.category)));
-  const uniqPublication = Array.from(new Set(filterAds.map((el) => el.publication)));
+  const uniqPublication = Array.from(new Set(filterAds.map((el) => el.published)));
 
   const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
     let updatedListPubl = [...checkedPublication];
@@ -50,7 +50,7 @@ const Filter = ({ getProductsUser }: FilterPropsType) => {
 
   const applyFilter = () => {
     const filterCategory = filterAds.filter((item) => checkedСategory.includes(item.category));
-    const filterPublic = filterAds.filter((item) => checkedPublication.includes(item.publication));
+    const filterPublic = filterAds.filter((item) => checkedPublication.includes(item.published));
     let filterData: any = [];
 
     if (checkedPublication.length === 0) {
@@ -58,7 +58,7 @@ const Filter = ({ getProductsUser }: FilterPropsType) => {
     } else if (checkedСategory.length === 0 && checkedPublication.length > 0) {
       filterData = filterPublic;
     } else {
-      filterData = filterCategory.filter((item) => checkedPublication.includes(item.publication));
+      filterData = filterCategory.filter((item) => checkedPublication.includes(item.published));
     }
     dispatch(getAdsFilter(filterData));
   };

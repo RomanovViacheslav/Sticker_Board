@@ -1,4 +1,4 @@
-import { Button, Spin } from 'antd';
+import { Button, Pagination, PaginationProps, Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
@@ -11,9 +11,12 @@ import Table from './Table';
 
 type AdminPropsType = {
   getProductsUser: () => void;
+  count: string;
+  onChange: PaginationProps['onChange'];
+  limit: string
 };
 
-const AdminPage = ({ getProductsUser }: AdminPropsType) => {
+const AdminPage = ({ getProductsUser, count, onChange, limit }: AdminPropsType) => {
   const [search, setSearch] = useState('');
   const dispatch = useAppDispatch();
   const { filterAds } = useAppSelector((state) => state.ads);
@@ -34,15 +37,26 @@ const AdminPage = ({ getProductsUser }: AdminPropsType) => {
           <div className={style.table_top}>
             <div className={style.table_title}>
               <h2>Объявления </h2>
-              <span>Всего:{filterAds.length}</span>
+              <span>Всего:{count}</span>
             </div>
             <Button onClick={handlerButton} className={style.table_button} type="primary">
               Добавить +
             </Button>
           </div>
           <div className={style.table_search}>
-            <Search value={search} setValue={setSearch} />
-            <Filter getProductsUser={getProductsUser} />
+            <div className={style.filter_container}>
+              <Search value={search} setValue={setSearch} />
+              <Filter getProductsUser={getProductsUser} />
+            </div>
+            <div>
+              <Pagination
+                simple
+                onChange={onChange}
+                defaultCurrent={1}
+                total={Number(count)}
+                pageSize={Number(limit)}
+              />
+            </div>
           </div>
 
           <Table />
