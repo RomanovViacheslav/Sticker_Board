@@ -2,17 +2,20 @@ import { Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import { deleteAdUser } from '../../../network/ads';
+
 import { getAdsSuccess } from '../../../store/adsSlice/adsSlice';
+import Modal from '../../common/Modal/Modal';
 import style from './AdminPage.module.scss';
 
 type TablePropsType = {
-  dataAds: any[];
+  setDeleteIdAd: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Table = () => {
+const Table = ({ setDeleteIdAd }: TablePropsType) => {
   const { filterAds, isLoading } = useAppSelector((state) => state.ads);
   const [dataTable, setDataTable] = useState(filterAds);
-
+  const [modalDelete, setmodalDelete] = useState(false);
   const [directionSort, setDirectionSort] = useState(false);
 
   const getDate = (data: string) => data.split('T')[0].split('-').reverse().join(' - ');
@@ -122,15 +125,33 @@ const Table = () => {
                 </Link>
                 <ul className={style.table_action_menu}>
                   <li>
-                    <Link to="#!" onClick={() => console.log('eeee')}>
-                      Просмотреть{' '}
-                    </Link>
+                    <Link to="#!">Просмотреть </Link>
                   </li>
                   <li>
                     <Link to="#!">Редактировать</Link>
                   </li>
                   <li>
-                    <Link to="#!">Удалить</Link>
+                    {modalDelete && (
+                      <Modal
+                        textAlert="Точно удалить?"
+                        inform={false}
+                        textOk="ДА"
+                        textNo="Нет"
+                        handleClickOk={() => {
+                          setDeleteIdAd(el.id);
+                        }}
+                        handleClickNo={() => {
+                          setmodalDelete(false);
+                        }}
+                      />
+                    )}
+                    <Link
+                      to="#!"
+                      onClick={() => {
+                        setmodalDelete(true);
+                      }}>
+                      Удалить
+                    </Link>
                   </li>
                 </ul>
               </div>

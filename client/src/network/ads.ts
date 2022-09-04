@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const createUrl = 'http://localhost:3001/add';
 const getAdsUserUrl = 'http://localhost:3001/product-user?';
+const deleteAdUserUrl = 'http://localhost:3001/product';
 
 export const createAd = async (
   title: string,
@@ -39,16 +40,35 @@ export const createAd = async (
   }
 };
 
-export const getAdsUser = async (limit: string, page: string, search:string) => {
+export const getAdsUser = async (limit: string, page: string, search: string) => {
   try {
     const token = localStorage.getItem('accessToken');
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    const res = await axios.get(`${getAdsUserUrl}limit=${limit}&page=${page}&search=${search}`, config);
+    const res = await axios.get(
+      `${getAdsUserUrl}limit=${limit}&page=${page}&search=${search}`,
+      config
+    );
 
     return res?.data;
+  } catch (e: any) {
+    console.log(e.message);
+
+    return e.message;
+  }
+};
+
+export const deleteAdUser = async (id: string) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const res = await axios.delete(`${deleteAdUserUrl}/${id}`, config);
+    return res;
   } catch (e: any) {
     console.log(e.message);
 

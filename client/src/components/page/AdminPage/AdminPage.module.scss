@@ -41,7 +41,7 @@
     right: 0;
     padding-left: 0;
     display: none;
-    z-index: 100;
+    z-index: 99;
     transition: all 0.3s ease;
     background-color: white;
     & > li > a {
@@ -280,7 +280,7 @@
   position: absolute;
   right: 0;
 
-  z-index: 100;
+  z-index: 99;
   width: 337px;
   // height: 424px;
   background: #ffffff;

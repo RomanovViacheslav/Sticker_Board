@@ -1,9 +1,9 @@
 import { PaginationProps } from 'antd';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AdminPage from '../../components/page/AdminPage';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { getAdsUser } from '../../network/ads';
+import { deleteAdUser, getAdsUser } from '../../network/ads';
 import {
   getAdsFail,
   getAdsFilter,
@@ -17,6 +17,7 @@ const AdminContainer = () => {
   const [page, setPage] = useState('1');
   const [count, setCount] = useState('');
   const [search, setSearch] = useState('');
+  const [deleteIdAd, setDeleteIdAd] = useState('');
 
   const getProductsUser = async () => {
     try {
@@ -38,6 +39,19 @@ const AdminContainer = () => {
     setPage(String(pageNumber));
   };
 
+  const deleteProduct = async () => {
+    try {
+      await deleteAdUser(deleteIdAd);
+      getProductsUser();
+    } catch (error: any) {
+      dispatch(getAdsFail(error.message));
+    }
+  };
+
+  useEffect(() => {
+    deleteProduct();
+  }, [deleteIdAd]);
+
   useLayoutEffect(() => {
     getProductsUser();
   }, [page]);
@@ -49,6 +63,7 @@ const AdminContainer = () => {
       onChange={onChange}
       count={count}
       getProductsUser={getProductsUser}
+      setDeleteIdAd={setDeleteIdAd}
     />
   );
 };

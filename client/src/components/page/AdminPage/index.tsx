@@ -1,9 +1,10 @@
 /* eslint-disable max-len */
-import { Button, Pagination, PaginationProps, Spin } from 'antd';
+import { Button, Pagination, PaginationProps, Space, Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { getAdsSuccess } from '../../../store/adsSlice/adsSlice';
+import Modal from '../../common/Modal/Modal';
 import UserMenu from '../../common/UserMenu';
 import style from './AdminPage.module.scss';
 import Filter from './Filter';
@@ -17,6 +18,7 @@ type AdminPropsType = {
   limit: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  setDeleteIdAd: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const AdminPage = ({
@@ -26,6 +28,7 @@ const AdminPage = ({
   limit,
   value,
   setValue,
+  setDeleteIdAd,
 }: AdminPropsType) => {
   const navigate = useNavigate();
 
@@ -64,8 +67,7 @@ const AdminPage = ({
               />
             </div>
           </div>
-
-          <Table />
+          <Table setDeleteIdAd={setDeleteIdAd} />
         </div>
       </div>
     </main>
