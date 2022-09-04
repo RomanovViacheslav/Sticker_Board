@@ -39,14 +39,14 @@ export const createAd = async (
   }
 };
 
-export const getAdsUser = async (limit: string, page: string) => {
+export const getAdsUser = async (limit: string, page: string, search:string) => {
   try {
     const token = localStorage.getItem('accessToken');
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    const res = await axios.get(`${getAdsUserUrl}limit=${limit}&page=${page}`, config);
+    const res = await axios.get(`${getAdsUserUrl}limit=${limit}&page=${page}&search=${search}`, config);
 
     return res?.data;
   } catch (e: any) {

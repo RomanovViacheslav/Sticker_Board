@@ -13,14 +13,15 @@ import {
 
 const AdminContainer = () => {
   const dispatch = useAppDispatch();
-  const [limit, setLimit] = useState('3');
+  const [limit, setLimit] = useState('8');
   const [page, setPage] = useState('1');
   const [count, setCount] = useState('');
+  const [search, setSearch] = useState('');
 
   const getProductsUser = async () => {
     try {
       dispatch(getAdsPending());
-      const result = await getAdsUser(limit, page);
+      const result = await getAdsUser(limit, page, search);
       console.log(result);
 
       if (result) {
@@ -41,7 +42,14 @@ const AdminContainer = () => {
     getProductsUser();
   }, [page]);
   return (
-    <AdminPage limit={limit} onChange={onChange} count={count} getProductsUser={getProductsUser} />
+    <AdminPage
+      value={search}
+      setValue={setSearch}
+      limit={limit}
+      onChange={onChange}
+      count={count}
+      getProductsUser={getProductsUser}
+    />
   );
 };
 

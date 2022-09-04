@@ -3,6 +3,8 @@ const fs = require("fs");
 const path = require("path");
 import { v4 as uuidv4 } from "uuid";
 import * as boom from "@hapi/boom";
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 export async function addProduct(req, userId) {
   try {
@@ -49,20 +51,74 @@ export async function addProduct(req, userId) {
   }
 }
 
-export async function getProductsUser(isAdmin, userId, limit, page) {
-  limit = limit || 8;
-  page = page || 1;
-  let offset = page * limit - limit;
-  if (isAdmin) {
-    const productUser = await Product.findAndCountAll({ limit, offset });
-    return productUser;
-  } else {
-    const productUser = await Product.findAndCountAll({
-      where: { userId },
-      limit,
-      offset,
-    });
+export async function getProductsUser(isAdmin, userId, limit, page, search) {
+  try {
+    limit = limit || 8;
+    page = page || 1;
+    let offset = page * limit - limit;
+    search = search.toLowerCase() || "";
+    if (isAdmin) {
+      const productUser = await Product.findAndCountAll({
+        where: { title: { [Op.iLike]: "%" + search + "%" } },
+        limit,
+        offset,
+      });
+      return productUser;
+    } else {
+      const productUser = await Product.findAndCountAll({
+        where: { userId, title: { [Op.like]: "%" + search + "%" } },
+        limit,
+        offset,
+      });
 
-    return productUser;
+      return productUser;
+    }
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+export async function deleteProduct(isAdmin, userId, prodId) {
+  try {
+    if (isAdmin) {
+      const productUser = await Product.findOne({
+        where: {
+          id: prodId,
+        },
+      });
+      const fileName = productUser.photo;
+      fs.unlinkSync("./upload/" + fileName);
+      const deleteProd = await Product.destroy({
+        where: {
+          id: prodId,
+        },
+      });
+      return deleteProd;
+    } else {
+      try {
+        const productUser = await Product.findOne({
+          where: {
+            id: prodId,
+            userId,
+          },
+        });
+
+        const fileName = productUser.photo;
+        fs.unlinkSync("./upload/" + fileName);
+        const deleteProd = await Product.destroy({
+          where: {
+            id: prodId,
+            userId,
+          },
+        });
+
+        return deleteProd;
+      } catch (e) {
+        return boom.badRequest("неверные параметры");
+      }
+    }
+  } catch (e) {
+    console.log(e);
+    return e;
   }
 }

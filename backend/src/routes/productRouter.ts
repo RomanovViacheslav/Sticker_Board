@@ -18,18 +18,6 @@ export default [
         multipart: true,
         maxBytes: 2097152,
       },
-      // validate: {
-      //   payload: joi.object({
-      //     title: joi.string().required(),
-      //     price: joi.number().required(),
-
-      //     phone: joi.string().required(),
-      //     location: joi.string().required(),
-      //     category: joi.string().required(),
-      //     description: joi.string().required(),
-      //     published: joi.string().required(),
-      //   }),
-      // },
     },
     handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
       return products.addProduct(
@@ -51,7 +39,8 @@ export default [
         request.auth.credentials.isAdmin,
         request.auth.credentials.userId,
         request.query.limit,
-        request.query.page
+        request.query.page,
+        request.query.search
       );
     },
   },
@@ -63,6 +52,23 @@ export default [
       directory: {
         path: "upload",
       },
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/product/{id}",
+    options: {
+      auth: {
+        strategy: "userauth",
+      },
+    },
+
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.deleteProduct(
+        request.auth.credentials.isAdmin,
+        request.auth.credentials.userId,
+        request.params.id
+      );
     },
   },
   {

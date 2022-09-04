@@ -1,7 +1,4 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable implicit-arrow-linebreak */
-
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { getAdsFilter } from '../../../store/adsSlice/adsSlice';
@@ -10,30 +7,23 @@ import style from './AdminPage.module.scss';
 type SearchPropsType = {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  getProductsUser: () => void;
 };
 
-const Search = ({ value, setValue }: SearchPropsType) => {
-  const { ads } = useAppSelector((state) => state.ads);
+const Search = ({ value, setValue, getProductsUser }: SearchPropsType) => {
   const [focus, setFocus] = useState(true);
-  const dispatch = useAppDispatch();
+
   const handler = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
   const handlerClick = () => {
-    const filterSearch2 = ads.filter((elem) =>
-      elem.title.toUpperCase().includes(value.toUpperCase())
-    );
-    const searchResult = filterSearch2.sort((a, b) => {
-      if (a.date > b.date) {
-        return -1;
-      }
-      if (a.date < b.date) {
-        return 1;
-      }
-
-      return 0;
-    });
-    dispatch(getAdsFilter(searchResult));
+    getProductsUser();
+  };
+  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      getProductsUser();
+      event.preventDefault();
+    }
   };
   const onMouseEnterHandler = () => {
     setFocus(false);
@@ -64,7 +54,13 @@ const Search = ({ value, setValue }: SearchPropsType) => {
   );
   return (
     <form className={style.search_form}>
-      <input className={style.search_input} type="text" value={value} onChange={handler} />
+      <input
+        className={style.search_input}
+        type="text"
+        value={value}
+        onChange={handler}
+        onKeyDown={onKeyDown}
+      />
 
       <Link
         to="#!"

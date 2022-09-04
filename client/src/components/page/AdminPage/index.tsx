@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Button, Pagination, PaginationProps, Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -13,15 +14,20 @@ type AdminPropsType = {
   getProductsUser: () => void;
   count: string;
   onChange: PaginationProps['onChange'];
-  limit: string
+  limit: string;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const AdminPage = ({ getProductsUser, count, onChange, limit }: AdminPropsType) => {
-  const [search, setSearch] = useState('');
-  const dispatch = useAppDispatch();
-  const { filterAds } = useAppSelector((state) => state.ads);
+const AdminPage = ({
+  getProductsUser,
+  count,
+  onChange,
+  limit,
+  value,
+  setValue,
+}: AdminPropsType) => {
   const navigate = useNavigate();
-  const { user } = useAppSelector((state) => state.user);
 
   const handlerButton = () => {
     navigate('/adding');
@@ -45,16 +51,16 @@ const AdminPage = ({ getProductsUser, count, onChange, limit }: AdminPropsType) 
           </div>
           <div className={style.table_search}>
             <div className={style.filter_container}>
-              <Search value={search} setValue={setSearch} />
-              <Filter getProductsUser={getProductsUser} />
+              <Search getProductsUser={getProductsUser} value={value} setValue={setValue} />
+              <Filter getProductsUser={getProductsUser} setValue={setValue} />
             </div>
             <div>
               <Pagination
                 simple
                 onChange={onChange}
-                defaultCurrent={1}
                 total={Number(count)}
                 pageSize={Number(limit)}
+                defaultCurrent={1}
               />
             </div>
           </div>

@@ -41,8 +41,8 @@ const UserMenu = ({ admin, id, ads }: UserMenuPropsType) => {
   return (
     <ul className={style.user_menu}>
       <UserMenuProfile userName={userName} />
-      <UserMenuItem ads={ads} to="/admin" svg={bulletinIcon} title="Мои объявления" />
-      {admin && <UserMenuItem to={`admin/${id}`} svg={adminIcon} title="Админ Панель" />}
+      <UserMenuItem ads={ads} to={`/myads/id${id}`} svg={bulletinIcon} title="Мои объявления" />
+      {admin && <UserMenuItem to={`admin/id${id}`} svg={adminIcon} title="Админ Панель" />}
       <UserMenuItem to="/" svg={exitIcon} title="Выход" onClick={logOut} />
     </ul>
   );

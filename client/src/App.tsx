@@ -40,6 +40,15 @@ const App = () => {
           }
         />
         <Route
+          path="myads/:id"
+          element={
+            <AuthHoc>
+              <AdminContainer />
+            </AuthHoc>
+          }
+        />
+
+        <Route
           path="adding"
           element={
             <AuthHoc>

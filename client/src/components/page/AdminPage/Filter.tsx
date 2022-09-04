@@ -8,9 +8,10 @@ import style from './AdminPage.module.scss';
 
 type FilterPropsType = {
   getProductsUser: () => void;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Filter = ({ getProductsUser }: FilterPropsType) => {
+const Filter = ({ getProductsUser, setValue }: FilterPropsType) => {
   const [menuFilter, setMenuFilter] = useState(false);
   const { filterAds } = useAppSelector((state) => state.ads);
   const dispatch = useAppDispatch();
@@ -43,8 +44,10 @@ const Filter = ({ getProductsUser }: FilterPropsType) => {
   };
 
   const resetFilter = () => {
+    setValue('');
     setCheckedСategory([]);
     setCheckedPublication([]);
+
     getProductsUser();
   };
 
