@@ -44,7 +44,7 @@ const Modal = ({
           </Space>
         ) : (
           <Space direction="horizontal">
-            <Button className={style.modal_button} size="small" type="primary">
+            <Button className={style.modal_button} onClick={handleClickNo} size="small" type="primary">
               ОК
             </Button>
           </Space>

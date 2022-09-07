@@ -24,6 +24,22 @@
   }
 }
 
+.link_back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  justify-content: start;
+}
+
+.link_back:hover {
+  color: #3a95ff;
+}
+
+
 .table_wrapper {
   width: 100%;
   margin-left: 40px;
@@ -44,7 +60,7 @@
     z-index: 99;
     transition: all 0.3s ease;
     background-color: white;
-    & > li > a {
+    & > li > button {
       display: flex;
       align-items: center;
       transition: all 0.3s ease;
@@ -54,7 +70,7 @@
       text-align: start;
       border: 1px solid rgba(44, 45, 46, 0.08);
     }
-    & > li > a:hover {
+    & > li > button:hover {
       background-color: rgba(44, 45, 46, 0.04);
       color: black;
     }

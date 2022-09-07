@@ -3,6 +3,8 @@ import axios from 'axios';
 const createUrl = 'http://localhost:3001/add';
 const getAdsUserUrl = 'http://localhost:3001/product-user?';
 const deleteAdUserUrl = 'http://localhost:3001/product';
+const getAdOneUrl = 'http://localhost:3001/product';
+const getPhotoUrl = 'http://localhost:3001/photo';
 
 export const createAd = async (
   title: string,
@@ -73,5 +75,27 @@ export const deleteAdUser = async (id: string) => {
     console.log(e.message);
 
     return e.message;
+  }
+};
+
+export const getAdOne = async (id: string | undefined) => {
+  try {
+    const res = await axios.get(`${getAdOneUrl}/${id}`);
+
+    return res;
+  } catch (e: any) {
+    console.log(e);
+    return e;
+  }
+};
+
+export const getPhoto = async (namePhoto: string) => {
+  try {
+    const res = await axios.get(`${getPhotoUrl}/${namePhoto}`);
+
+    return res;
+  } catch (e: any) {
+    console.log(e);
+    return e;
   }
 };

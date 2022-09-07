@@ -44,10 +44,18 @@ export default [
       );
     },
   },
+  {
+    method: "GET",
+    path: "/product/{id}",
+    options: {},
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.getProductOne(request.params.id);
+    },
+  },
 
   {
     method: "GET",
-    path: "/upload/{file*}",
+    path: "/photo/{file*}",
     handler: {
       directory: {
         path: "upload",

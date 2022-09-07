@@ -14,6 +14,8 @@ import getUserProfile from './store/userSlice/userActions';
 import AuthHoc from './components/HOC/AuthHoc';
 import MainContainer from './container/MainContainer/MainContainer';
 import AddingContainer from './container/AddingContainer';
+import AdOne from './components/page/AdOnePage';
+import AdOneContainer from './container/AdOneContainer/AdOneContainer';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
@@ -31,6 +33,7 @@ const App = () => {
         <Route index element={<MainContainer />} />
         {!isUser && <Route path="reg" element={<RegContainer />} />}
         {!isUser && <Route path="auth" element={<AuthContainer />} />}
+        <Route path="product/:id" element={<AdOneContainer />} />
         <Route
           path="admin/:id"
           element={

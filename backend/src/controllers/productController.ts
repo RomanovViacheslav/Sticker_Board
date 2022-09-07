@@ -122,3 +122,22 @@ export async function deleteProduct(isAdmin, userId, prodId) {
     return e;
   }
 }
+
+export async function getProductOne(prodId) {
+  try {
+    const productOne = await Product.findOne({
+      where: {
+        id: prodId,
+        published: "Да",
+      },
+    });
+
+    if (productOne === null) {
+      return boom.badRequest("Объяление не найдено или находится на модерации");
+    }
+    return productOne;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}

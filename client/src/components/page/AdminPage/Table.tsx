@@ -1,6 +1,6 @@
 import { Spin } from 'antd';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { deleteAdUser } from '../../../network/ads';
 
@@ -17,7 +17,8 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
   const [dataTable, setDataTable] = useState(filterAds);
   const [modalDelete, setmodalDelete] = useState(false);
   const [directionSort, setDirectionSort] = useState(false);
-
+  const [modalOpenAd, setModalOpenAd] = useState(false);
+  const navigate = useNavigate();
   const getDate = (data: string) => data.split('T')[0].split('-').reverse().join(' - ');
 
   const sortIcon = (
@@ -32,6 +33,14 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
   useLayoutEffect(() => {
     setDataTable(filterAds);
   }, [filterAds]);
+
+  const openAd = (published: string, id: string) => {
+    if (published === 'Нет') {
+      setModalOpenAd(true);
+    } else {
+      navigate(`/product/${id}`);
+    }
+  };
 
   const sortName = () => {
     const adsData = [...filterAds];
@@ -125,10 +134,26 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
                 </Link>
                 <ul className={style.table_action_menu}>
                   <li>
-                    <Link to="#!">Просмотреть </Link>
+                    <button
+                      className={style.link_back}
+                      onClick={() => openAd(el.published, el.id)}
+                      type="button">
+                      Просмотреть
+                    </button>
+                    {modalOpenAd && (
+                      <Modal
+                        textAlert="Объявление будет доступно после модерации."
+                        inform
+                        handleClickNo={() => {
+                          setModalOpenAd(false);
+                        }}
+                      />
+                    )}
                   </li>
                   <li>
-                    <Link to="#!">Редактировать</Link>
+                    <button className={style.link_back} type="button">
+                      Редактировать
+                    </button>
                   </li>
                   <li>
                     {modalDelete && (
@@ -145,13 +170,14 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
                         }}
                       />
                     )}
-                    <Link
-                      to="#!"
+                    <button
+                      className={style.link_back}
+                      type="button"
                       onClick={() => {
                         setmodalDelete(true);
                       }}>
                       Удалить
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>

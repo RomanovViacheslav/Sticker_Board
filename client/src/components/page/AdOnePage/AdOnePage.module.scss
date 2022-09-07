@@ -1,0 +1,143 @@
+.content {
+  grid-area: 'content';
+  background: rgba(42, 47, 55, 0.02);
+  text-align: center;
+}
+
+.content__container {
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1170px;
+  padding-left: 25px;
+  padding-right: 25px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.spin {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product_page {
+  width: 100%;
+}
+.product_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 32px;
+}
+
+.link_back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  justify-content: start;
+}
+
+.link_back:hover {
+  color: #3a95ff;
+}
+
+.link_back_icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.product_column_left {
+  width: 70%;
+  text-align: start;
+}
+
+.product_date {
+  display: block;
+  width: 154px;
+  height: 40px;
+  background: rgba(42, 47, 55, 0.06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product_title {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.product_column_right {
+  width: 30%;
+  text-align: start;
+}
+.product_img {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.product_description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.product_subtitle {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 32px;
+}
+
+.product_location {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.product_map {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+.product_price {
+  display: block;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 24px;
+}
+
+.product_phone_button {
+  width: 135px;
+  height: 40px;
+  background: #4877f2;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.product_phone {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #4877f2;
+}
