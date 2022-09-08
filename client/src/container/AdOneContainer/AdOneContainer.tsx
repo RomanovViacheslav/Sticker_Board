@@ -31,7 +31,6 @@ const AdOneContainer = () => {
       }
     } catch (e: any) {
       dispatch(getAdOneFail(e.message));
-      console.log(e.message);
     }
   };
 

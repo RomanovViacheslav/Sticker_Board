@@ -5,6 +5,7 @@ const getAdsUserUrl = 'http://localhost:3001/product-user?';
 const deleteAdUserUrl = 'http://localhost:3001/product';
 const getAdOneUrl = 'http://localhost:3001/product';
 const getPhotoUrl = 'http://localhost:3001/photo';
+const getAdsPublicUrl = 'http://localhost:3001/product-public?';
 
 export const createAd = async (
   title: string,
@@ -89,13 +90,30 @@ export const getAdOne = async (id: string | undefined) => {
   }
 };
 
-export const getPhoto = async (namePhoto: string) => {
-  try {
-    const res = await axios.get(`${getPhotoUrl}/${namePhoto}`);
+// export const getPhoto = async (namePhoto: string) => {
+//   try {
+//     const res = await axios.get(`${getPhotoUrl}/${namePhoto}`);
 
-    return res;
+//     return res;
+//   } catch (e: any) {
+//     console.log(e);
+//     return e;
+//   }
+// };
+
+export const getAdsPublic = async (
+  limit: string,
+  page: string,
+  category: string,
+  search: string
+) => {
+  try {
+    const res = await axios.get(`${getAdsPublicUrl}limit=${limit}&page=${page}&category=${category}&search=${search}`);
+
+    return res?.data;
   } catch (e: any) {
-    console.log(e);
-    return e;
+    console.log(e.message);
+
+    return e.message;
   }
 };

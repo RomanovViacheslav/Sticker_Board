@@ -66,7 +66,7 @@ export async function getProductsUser(isAdmin, userId, limit, page, search) {
       return productUser;
     } else {
       const productUser = await Product.findAndCountAll({
-        where: { userId, title: { [Op.like]: "%" + search + "%" } },
+        where: { userId, title: { [Op.iLike]: "%" + search + "%" } },
         limit,
         offset,
       });
@@ -136,6 +136,30 @@ export async function getProductOne(prodId) {
       return boom.badRequest("Объяление не найдено или находится на модерации");
     }
     return productOne;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
+export async function getPublicProduct(limit, page, category, search) {
+  limit = limit || 9;
+  page = page || 1;
+  let offset = page * limit - limit;
+  category = category || "";
+  search = search || "";
+  try {
+    const productAll = await Product.findAndCountAll({
+      where: {
+        published: "Да",
+        title: { [Op.iLike]: "%" + search + "%" },
+        category: { [Op.iLike]: "%" + category + "%" },
+      },
+      limit,
+      offset,
+      order: [['updatedAt', 'DESC']]
+    });
+    return productAll;
   } catch (e) {
     console.log(e);
     return e;

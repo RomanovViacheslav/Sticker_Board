@@ -188,13 +188,14 @@ const AddingPage = ({ isAdmin, sendData }: AddingPropsType) => {
                       required: true,
                       message: 'Поле должно быть заполнено',
                     },
+                    { max: 255, message: 'Название должно быть не более 255 символов' },
                   ]}
                   name="description"
                   label="Описание"
                   className={style.form_title}>
                   <TextArea
                     className={style.form_text_area}
-                    placeholder="Введите текст (до 3000 символов)"
+                    placeholder="Введите текст (до 255 символов)"
                   />
                 </FormItem>
                 <FormItem

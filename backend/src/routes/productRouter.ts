@@ -82,15 +82,13 @@ export default [
   {
     method: "GET",
     path: "/product-public",
-    options: {
-      auth: {
-        strategy: "userauth",
-      },
-    },
+    options: {},
     handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
-      return products.addProduct(
-        request.payload,
-        request.auth.credentials.userId
+      return products.getPublicProduct(
+        request.query.limit,
+        request.query.page,
+        request.query.category,
+        request.query.search
       );
     },
   },
