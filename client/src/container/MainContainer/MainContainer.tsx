@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import MainPage from '../../components/page/MainPage';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getAdsPublic } from '../../network/ads';
+import {
+  adsPublicClear,
+  adsPublicSuccess,
+  getAdsPublicFail,
+} from '../../store/adsPublicSlice/adsPublicSlice';
 import { getAdsFail, getAdsPending, getAdsSuccess } from '../../store/adsSlice/adsSlice';
 
 const MainContainer = () => {
@@ -24,37 +29,60 @@ const MainContainer = () => {
     ad: dataType[];
   };
 
-  const { ads, isLoading } = useAppSelector((state) => state.ads);
+  const { adsPublic } = useAppSelector((state) => state.adsPublic);
   const [count, setCount] = useState('');
   const [page, setPage] = useState('1');
   const [search, setSearch] = useState('');
   const [limit, setLimit] = useState('9');
   const [category, setCategory] = useState('');
-  const [data, setData] = useState<arrDataType[]>(ads);
+  const [data, setData] = useState<arrDataType[]>([]);
+  const [fetching, setFetching] = useState(false);
   const dispatch = useAppDispatch();
 
   const getProductPublic = async () => {
     try {
-      dispatch(getAdsPending());
       const result = await getAdsPublic(limit, page, category, search);
       console.log(result);
 
       if (result) {
-        dispatch(getAdsSuccess(result.rows));
-
+        dispatch(adsPublicSuccess(result.rows));
+        setData([...data, ...result.rows]);
         setCount(result.count);
       }
     } catch (error: any) {
-      dispatch(getAdsFail(error.message));
+      dispatch(getAdsPublicFail(error.message));
     }
   };
-  console.log(ads);
+
+  useLayoutEffect(() => {
+    getProductPublic();
+
+    console.log(data);
+  }, [page, fetching]);
+  console.log(page);
 
   useEffect(() => {
-    getProductPublic();
-  }, [page]);
+    setPage('1');
 
-  return <MainPage ads={ads} isLoading={isLoading} />;
+    setData([]);
+    setFetching(!fetching);
+  }, [category]);
+
+  console.log(data);
+
+  const clickHandler = () => {
+    setPage(`${Number(page) + 1}`);
+  };
+
+  return (
+    <MainPage
+      category={category}
+      setCategory={setCategory}
+      ads={data}
+      isLoading={false}
+      clickHandler={clickHandler}
+    />
+  );
 };
 
 export default MainContainer;

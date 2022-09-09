@@ -5,6 +5,7 @@ import regReducer from './regSlice/regSlice';
 import adsReduser from './adsSlice/adsSlice';
 import createAdReducer from './createAd/createAdSlice';
 import adOneReducer from './adOneSlice/adOneSlice';
+import adsPublicReducer from './adsPublicSlice/adsPublicSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     ads: adsReduser,
     createAd: createAdReducer,
     adOne: adOneReducer,
+    adsPublic: adsPublicReducer,
   },
 });
 

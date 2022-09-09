@@ -93,7 +93,7 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
         <Spin size="large" />
       ) : (
         dataTable.map((el) => (
-          <div key={el.key} className={`${style.table_row} ${style.table_row_main}`}>
+          <div key={el.id} className={`${style.table_row} ${style.table_row_main}`}>
             <h2 className={style.table_name_item}>{el.title}</h2>
             <span className={style.table_date_item}>{el.category}</span>
             <span className={style.table_publication_item}>{getDate(el.createdAt)}</span>

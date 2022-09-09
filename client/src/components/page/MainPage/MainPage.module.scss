@@ -26,6 +26,7 @@
 }
 
 .main_baner_text {
+  text-align: start;
   & > h1 {
     width: 100%;
     font-weight: 700;
@@ -45,7 +46,7 @@
   width: 464px;
 }
 
-.card_wrapper{
+.card_wrapper {
   height: 100%;
   margin: 0 auto;
   max-width: 1170px;
@@ -54,4 +55,34 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 30px;
+}
+
+.spin {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_button {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 250px;
+}
+
+.card_title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: start;
+  margin: 0 auto;
+  max-width: 1170px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 40px;
 }
