@@ -104,8 +104,8 @@ export const getAdOne = async (id: string | undefined) => {
 export const getAdsPublic = async (
   limit: string,
   page: string,
-  category: string,
-  search: string
+  category?: string,
+  search?: string
 ) => {
   try {
     const res = await axios.get(`${getAdsPublicUrl}limit=${limit}&page=${page}&category=${category}&search=${search}`);

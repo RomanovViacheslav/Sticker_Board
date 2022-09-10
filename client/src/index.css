@@ -140,10 +140,10 @@ a {
   line-height: 24px;
 }
 
-.ant-form-item-control-input {
+/* .ant-form-item-control-input {
   width: 100% !important;
   height: 100% !important;
-}
+} */
 
 .ant-pagination-item-active{
   border-color: #4877f2 !important;

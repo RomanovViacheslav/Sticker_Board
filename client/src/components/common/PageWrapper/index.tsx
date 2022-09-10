@@ -13,6 +13,7 @@ const PageWrapper = () => {
   const handlerButton = () => {
     navigate('/adding');
   };
+
   const iconSearch = (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.4">
@@ -40,7 +41,11 @@ const PageWrapper = () => {
     <div className={style.page_wrapper}>
       <Header>
         <Search value={search} setValue={setSearch} />
-        <ButtonComponent onClick={handlerButton} className={style.header_button} text="Подать объявление" />
+        <ButtonComponent
+          onClick={handlerButton}
+          className={style.header_button}
+          text="Подать объявление"
+        />
       </Header>
       <Outlet />
       <Footer />

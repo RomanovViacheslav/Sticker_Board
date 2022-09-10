@@ -32,8 +32,7 @@ const MainContainer = () => {
   const { adsPublic } = useAppSelector((state) => state.adsPublic);
   const [count, setCount] = useState('');
   const [page, setPage] = useState('1');
-  const [search, setSearch] = useState('');
-  const [limit, setLimit] = useState('9');
+
   const [category, setCategory] = useState('');
   const [data, setData] = useState<arrDataType[]>([]);
   const [fetching, setFetching] = useState(false);
@@ -41,7 +40,7 @@ const MainContainer = () => {
 
   const getProductPublic = async () => {
     try {
-      const result = await getAdsPublic(limit, page, category, search);
+      const result = await getAdsPublic('9', page, category, '');
       console.log(result);
 
       if (result) {
@@ -56,10 +55,7 @@ const MainContainer = () => {
 
   useLayoutEffect(() => {
     getProductPublic();
-
-    console.log(data);
   }, [page, fetching]);
-  console.log(page);
 
   useEffect(() => {
     setPage('1');
@@ -68,14 +64,14 @@ const MainContainer = () => {
     setFetching(!fetching);
   }, [category]);
 
-  console.log(data);
-
   const clickHandler = () => {
     setPage(`${Number(page) + 1}`);
   };
+  const buttonDis = Math.ceil(Number(count) / 9) - Number(page) < 1;
 
   return (
     <MainPage
+      buttonDis={buttonDis}
       category={category}
       setCategory={setCategory}
       ads={data}

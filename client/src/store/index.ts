@@ -6,6 +6,7 @@ import adsReduser from './adsSlice/adsSlice';
 import createAdReducer from './createAd/createAdSlice';
 import adOneReducer from './adOneSlice/adOneSlice';
 import adsPublicReducer from './adsPublicSlice/adsPublicSlice';
+import searchValueReducer from './searchValueSlice/searchValueSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     createAd: createAdReducer,
     adOne: adOneReducer,
     adsPublic: adsPublicReducer,
+    searchValue: searchValueReducer,
   },
 });
 

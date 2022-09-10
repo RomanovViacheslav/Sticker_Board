@@ -16,6 +16,7 @@ import MainContainer from './container/MainContainer/MainContainer';
 import AddingContainer from './container/AddingContainer';
 import AdOne from './components/page/AdOnePage';
 import AdOneContainer from './container/AdOneContainer/AdOneContainer';
+import SearchContainer from './container/SearcContainer';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
@@ -34,6 +35,7 @@ const App = () => {
         {!isUser && <Route path="reg" element={<RegContainer />} />}
         {!isUser && <Route path="auth" element={<AuthContainer />} />}
         <Route path="product/:id" element={<AdOneContainer />} />
+        <Route path="search" element={<SearchContainer />} />
         <Route
           path="admin/:id"
           element={

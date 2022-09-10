@@ -11,9 +11,17 @@ type MainPagePropsType = {
   clickHandler: () => void;
   category: string;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
+  buttonDis: boolean;
 };
 
-const MainPage = ({ ads, isLoading, clickHandler, category, setCategory }: MainPagePropsType) => (
+const MainPage = ({
+  ads,
+  isLoading,
+  clickHandler,
+  category,
+  setCategory,
+  buttonDis,
+}: MainPagePropsType) => (
   <main className={style.content}>
     <div className={style.content__container}>
       <div className={style.main_banner}>
@@ -49,9 +57,11 @@ const MainPage = ({ ads, isLoading, clickHandler, category, setCategory }: MainP
           ))
         )}
       </div>
-      <Button className={style.card_button} onClick={() => clickHandler()} type="primary">
-        Загрузить еще
-      </Button>
+      {!buttonDis && (
+        <Button className={style.card_button} onClick={() => clickHandler()} type="primary">
+          Загрузить еще
+        </Button>
+      )}
     </div>
   </main>
 );

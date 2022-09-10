@@ -1,5 +1,8 @@
 import { log } from 'console';
 import React, { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../hooks/redux-hooks';
+import { getValue } from '../../../store/searchValueSlice/searchValueSlice';
 
 import style from './Search.module.scss';
 
@@ -10,7 +13,8 @@ type SearchPropsType = {
 
 const Search = ({ value, setValue }: SearchPropsType) => {
   const [focus, setFocus] = useState(true);
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handler = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
@@ -59,7 +63,8 @@ const Search = ({ value, setValue }: SearchPropsType) => {
         className={style.search_button}
         type="button"
         onClick={() => {
-          console.log(value);
+          dispatch(getValue(value));
+          navigate('/search', { state: value });
         }}>
         Искать
       </button>
