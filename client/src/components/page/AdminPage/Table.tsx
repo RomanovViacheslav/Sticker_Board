@@ -151,7 +151,12 @@ const Table = ({ setDeleteIdAd }: TablePropsType) => {
                     )}
                   </li>
                   <li>
-                    <button className={style.link_back} type="button">
+                    <button
+                      className={style.link_back}
+                      type="button"
+                      onClick={() => {
+                        navigate(`/editproduct/${el.id}`);
+                      }}>
                       Редактировать
                     </button>
                   </li>

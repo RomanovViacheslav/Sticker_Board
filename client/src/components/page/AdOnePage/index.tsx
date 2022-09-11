@@ -3,7 +3,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Button, Spin } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { getPhoto } from '../../../network/ads';
+
 import ButtonComponent from '../../common/Button';
 import style from './AdOnePage.module.scss';
 

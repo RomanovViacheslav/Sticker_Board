@@ -4,8 +4,9 @@ const createUrl = 'http://localhost:3001/add';
 const getAdsUserUrl = 'http://localhost:3001/product-user?';
 const deleteAdUserUrl = 'http://localhost:3001/product';
 const getAdOneUrl = 'http://localhost:3001/product';
-const getPhotoUrl = 'http://localhost:3001/photo';
+const updateAdUrl = 'http://localhost:3001/product';
 const getAdsPublicUrl = 'http://localhost:3001/product-public?';
+const getAdUserOneUrl = 'http://localhost:3001/product-user';
 
 export const createAd = async (
   title: string,
@@ -90,17 +91,6 @@ export const getAdOne = async (id: string | undefined) => {
   }
 };
 
-// export const getPhoto = async (namePhoto: string) => {
-//   try {
-//     const res = await axios.get(`${getPhotoUrl}/${namePhoto}`);
-
-//     return res;
-//   } catch (e: any) {
-//     console.log(e);
-//     return e;
-//   }
-// };
-
 export const getAdsPublic = async (
   limit: string,
   page: string,
@@ -108,12 +98,66 @@ export const getAdsPublic = async (
   search?: string
 ) => {
   try {
-    const res = await axios.get(`${getAdsPublicUrl}limit=${limit}&page=${page}&category=${category}&search=${search}`);
+    const res = await axios.get(
+      `${getAdsPublicUrl}limit=${limit}&page=${page}&category=${category}&search=${search}`
+    );
 
     return res?.data;
   } catch (e: any) {
     console.log(e.message);
 
     return e.message;
+  }
+};
+
+export const updateAd = async (
+  id: string | undefined,
+  title: string,
+  price: string,
+  phone: string,
+  file: any,
+  location: string,
+  category: string,
+  description: string,
+  published: string = 'Нет'
+) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('price', price);
+    formData.append('phone', phone);
+    formData.append('file', file);
+    formData.append('location', location);
+    formData.append('category', category);
+    formData.append('description', description);
+    formData.append('published', published);
+
+    const res = await axios.put(`${updateAdUrl}/${id}`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (e: any) {
+    return e.message;
+  }
+};
+
+export const getAdUserOne = async (id: string | undefined) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    const res = await axios.get(`${getAdUserOneUrl}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res;
+  } catch (e: any) {
+    console.log(e);
+    return e;
   }
 };

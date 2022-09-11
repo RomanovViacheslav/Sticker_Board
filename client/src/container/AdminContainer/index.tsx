@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import AdminPage from '../../components/page/AdminPage';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { deleteAdUser, getAdsUser } from '../../network/ads';
+import { adOneClear } from '../../store/adOneSlice/adOneSlice';
 import {
   getAdsFail,
   getAdsFilter,
@@ -49,7 +50,13 @@ const AdminContainer = () => {
   };
 
   useEffect(() => {
-    deleteProduct();
+    dispatch(adOneClear());
+  }, []);
+
+  useEffect(() => {
+    if (deleteIdAd !== '') {
+      deleteProduct();
+    }
   }, [deleteIdAd]);
 
   useLayoutEffect(() => {

@@ -10,7 +10,7 @@ export async function addProduct(req, userId) {
   try {
     const { title, price, phone, location, category, description, published } =
       req;
-    if (req.file === undefined) {
+    if (req.file === "undefined") {
       return boom.badRequest("Необходимо загрузить фото");
     } else {
       let ext = path.extname(req.file.hapi.filename);
@@ -56,7 +56,7 @@ export async function getProductsUser(isAdmin, userId, limit, page, search) {
     limit = limit || 8;
     page = page || 1;
     let offset = page * limit - limit;
-    search = search.toLowerCase() || "";
+    search = search || "";
     if (isAdmin) {
       const productUser = await Product.findAndCountAll({
         where: { title: { [Op.iLike]: "%" + search + "%" } },
@@ -157,9 +157,133 @@ export async function getPublicProduct(limit, page, category, search) {
       },
       limit,
       offset,
-      order: [['updatedAt', 'DESC']]
+      order: [["createdAt", "DESC"]],
     });
     return productAll;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
+export async function updateProduct(req, isAdmin, userId, prodId) {
+  try {
+    const { title, price, phone, location, category, description, published } =
+      req;
+    let filename: string;
+
+    if (req.file !== "undefined") {
+      let ext = path.extname(req.file.hapi.filename);
+      if (
+        ext !== ".jpg" &&
+        ext !== ".jpeg" &&
+        ext !== ".png" &&
+        ext !== ".webp"
+      ) {
+        return boom.badRequest("Недопустимый тип файла");
+      } else {
+        filename = uuidv4() + ext;
+        const data = req.file._data;
+
+        fs.writeFile("./upload/" + filename, data, (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
+    }
+
+    if (isAdmin) {
+      const productUser = await Product.findOne({
+        where: {
+          id: prodId,
+        },
+      });
+      if (filename !== undefined) {
+        fs.unlinkSync("./upload/" + productUser.photo);
+      } else {
+        filename = productUser.photo;
+      }
+      console.log(filename);
+      const updateProd = await Product.update(
+        {
+          title,
+          price,
+          photo: filename,
+          phone,
+          location,
+          category,
+          description,
+          published,
+          userId: userId,
+        },
+        {
+          where: {
+            id: prodId,
+          },
+        }
+      );
+      return updateProd;
+    } else {
+      const productUser = await Product.findOne({
+        where: {
+          id: prodId,
+          userId,
+        },
+      });
+      if (filename !== undefined) {
+        fs.unlinkSync("./upload/" + productUser.photo);
+      } else {
+        filename = productUser.photo;
+      }
+      const updateProd = await Product.update(
+        {
+          title,
+          price,
+          photo: filename || productUser.photo,
+          phone,
+          location,
+          category,
+          description,
+          userId: userId,
+        },
+        {
+          where: {
+            id: prodId,
+            userId,
+          },
+        }
+      );
+      return updateProd;
+    }
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
+export async function getProductUserOne(prodId, isAdmin, userId) {
+  try {
+    if (isAdmin) {
+      const productUser = await Product.findOne({
+        where: {
+          id: prodId,
+        },
+      });
+      return productUser;
+    } else {
+      const productOne = await Product.findOne({
+        where: {
+          id: prodId,
+          userId,
+        },
+      });
+
+      if (productOne === null) {
+        return boom.badRequest("Объяление не найдено");
+      }
+      return productOne;
+    }
   } catch (e) {
     console.log(e);
     return e;

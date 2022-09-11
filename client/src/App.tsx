@@ -17,6 +17,7 @@ import AddingContainer from './container/AddingContainer';
 import AdOne from './components/page/AdOnePage';
 import AdOneContainer from './container/AdOneContainer/AdOneContainer';
 import SearchContainer from './container/SearcContainer';
+import UpdateAdContainer from './container/UpdateAdContainer';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
@@ -49,6 +50,14 @@ const App = () => {
           element={
             <AuthHoc>
               <AdminContainer />
+            </AuthHoc>
+          }
+        />
+        <Route
+          path="editproduct/:id"
+          element={
+            <AuthHoc>
+              <UpdateAdContainer />
             </AuthHoc>
           }
         />

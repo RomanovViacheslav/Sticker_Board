@@ -47,7 +47,27 @@ const AddingContainer = () => {
       dispatch(createAdError(error));
     }
   };
-  return <AddingPage isAdmin={isAdmin} sendData={sendData} />;
+
+  const ad = {
+    title: '',
+    price: '',
+    phone: '+7',
+    photo: '',
+    location: '',
+    published: 'Нет',
+    category: null,
+    description: '',
+  };
+  return (
+    <AddingPage
+      update={false}
+      isAd
+      loadingData={false}
+      isAdmin={isAdmin}
+      sendData={sendData}
+      ad={ad}
+    />
+  );
 };
 
 export default AddingContainer;

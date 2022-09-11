@@ -92,4 +92,44 @@ export default [
       );
     },
   },
+  {
+    method: "PUT",
+    path: "/product/{id}",
+
+    config: {
+      auth: {
+        strategy: "userauth",
+      },
+      payload: {
+        output: "stream",
+        parse: true,
+        multipart: true,
+        maxBytes: 2097152,
+      },
+    },
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.updateProduct(
+        request.payload,
+        request.auth.credentials.isAdmin,
+        request.auth.credentials.userId,
+        request.params.id
+      );
+    },
+  },
+  {
+    method: "GET",
+    path: "/product-user/{id}",
+    options: {
+      auth: {
+        strategy: "userauth",
+      },
+    },
+    handler: async (request: hapi.Request, h: hapi.ResponseToolkit) => {
+      return products.getProductUserOne(
+        request.params.id,
+        request.auth.credentials.isAdmin,
+        request.auth.credentials.userId
+      );
+    },
+  },
 ];
