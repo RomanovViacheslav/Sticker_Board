@@ -66,10 +66,8 @@ const AddingPage = ({
   };
 
   const onFinish = async (value: any) => {
-    console.log(value);
     const { title, price, phone, photo, location, published, options, description } = value;
     const { file } = photo;
-    console.log(photo);
 
     sendData(title, price, phone, file, location, options, description, published);
   };

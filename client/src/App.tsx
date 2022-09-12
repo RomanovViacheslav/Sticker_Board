@@ -18,6 +18,7 @@ import AdOne from './components/page/AdOnePage';
 import AdOneContainer from './container/AdOneContainer/AdOneContainer';
 import SearchContainer from './container/SearcContainer';
 import UpdateAdContainer from './container/UpdateAdContainer';
+import NotFoundContainer from './container/NotFoundContainer.tsx/NotFoundContainer';
 
 const App = () => {
   const { isUser } = useAppSelector((state) => state.user);
@@ -70,7 +71,7 @@ const App = () => {
             </AuthHoc>
           }
         />
-        <Route path="*" element={<h1>NOT FOUND </h1>} />
+        <Route path="*" element={<NotFoundContainer />} />
       </Route>
     </Routes>
   );

@@ -34,7 +34,7 @@ const MainPage = ({
               <br /> Безопасные расчеты. Удобный сервис доставки
             </p>
           </div>
-          <img className={style.main_baner_img} src={banner} alt="" />
+          <img className={style.main_baner_img} src={banner} alt="Banner" />
         </div>
       </div>
       <CategoryMenu category={category} setCategory={setCategory} />

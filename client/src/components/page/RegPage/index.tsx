@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import {
   Form,
   Input,
@@ -13,23 +12,28 @@ import {
 } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { registration } from '../../../network/user';
-import { regError, regPending, regSuccess } from '../../../store/regSlice/regSlice';
 
 import FormWrapper from '../../common/Form/FormWrapper';
 
 import style from './RegPage.module.scss';
 
-const RegPage = () => {
-  const [finish, setFinish] = useState(false);
+type RegPagePropsType = {
+  errorAPI: boolean;
+  sendData: (Name: string, surName: string, email: string, password: string) => void;
+  message: string;
+  isLoading: boolean;
+};
+
+const RegPage = ({ sendData, errorAPI, message, isLoading }: RegPagePropsType) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [form] = Form.useForm();
-  const { isLoading, message, status } = useAppSelector((state) => state.registration);
-  const [errorAPI, setErrorAPI] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+
+  const onFinish = async (values: any) => {
+    const { Name, surName, email, password } = values;
+
+    sendData(Name, surName, email, password);
+  };
+
   return (
     <main className={style.content}>
       <div className={style.content__container}>
@@ -50,30 +54,7 @@ const RegPage = () => {
             className={style.form}
             form={form}
             onFinish={async (values) => {
-              setFinish(true);
-              const { Name, surName, email, password } = values;
-
-              try {
-                dispatch(regPending());
-
-                const result = await registration(Name, surName, email, password);
-                console.log(result);
-
-                if (result.status === 'error') {
-                  dispatch(regError(result.message));
-
-                  setErrorAPI(true);
-                } else if (result === 'Network Error') {
-                  dispatch(regError('Ошибка сервера'));
-                  setErrorAPI(true);
-                } else {
-                  dispatch(regSuccess(result.message));
-                  navigate('/auth');
-                }
-              } catch (error: any) {
-                dispatch(regError(error));
-                console.log(error);
-              }
+              await onFinish(values);
             }}>
             <FormItem
               name="Name"

@@ -3,26 +3,32 @@ const bcrypt = require("bcrypt");
 import { v4 as uuidv4 } from "uuid";
 
 export async function registr(req) {
-  const { Name, surName, email, password } = req;
-  const candidate = await User.findOne({
-    where: { email },
-  });
-  if (candidate) {
-    const dataError: any = {
-      message: "Такой email уже существует",
-      status: "error",
-    };
-    return dataError;
+  try {
+    const { Name, surName, email, password } = req;
+    const candidate = await User.findOne({
+      where: { email },
+    });
+    if (candidate) {
+      const dataError: any = {
+        message: "Такой email уже существует",
+        status: "error",
+      };
+      return dataError;
+    }
+    const hashPassword = await bcrypt.hash(password, 7);
+    const user = await User.create({
+      Name,
+      surName,
+      email,
+      password: hashPassword,
+    });
+    delete user.dataValues.password;
+
+    return user;
+  } catch (e) {
+    console.log(e);
+    return e;
   }
-  const hashPassword = await bcrypt.hash(password, 7);
-  const user = await User.create({
-    Name,
-    surName,
-    email,
-    password: hashPassword,
-  });
-  delete user.password;
-  return user;
 }
 
 interface ISession {
@@ -54,7 +60,7 @@ export async function login(req) {
   } else {
     const sessionId = uuidv4();
     sessions.set(sessionId, {
-      isAdmin: user.role === 'ADMIN',
+      isAdmin: user.role === "ADMIN",
       userId: user.id,
     });
 
@@ -67,9 +73,15 @@ export function getSession(sessionId: string): ISession | undefined {
 }
 
 export async function getUser(id: number) {
-  const user = await User.findOne({ where: { id } });
+  try {
+    const user = await User.findOne({ where: { id } });
 
-  return user;
+    delete user.dataValues.password;
+    return user;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 }
 
 export function logout(): any {
