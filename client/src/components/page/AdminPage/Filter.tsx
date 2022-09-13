@@ -106,7 +106,7 @@ const Filter = ({ getProductsUser, setValue }: FilterPropsType) => {
             <div className={style.filter_menu_column}>
               <span className={style.filter_menu_span}>Категория</span>
               {uniqCategory.map((el) => (
-                <div className={style.filter_checkbox}>
+                <div key={el} className={style.filter_checkbox}>
                   <input
                     type="checkbox"
                     id={el}
@@ -121,7 +121,7 @@ const Filter = ({ getProductsUser, setValue }: FilterPropsType) => {
             <div className={style.filter_menu_column}>
               <span className={style.filter_menu_span}>Опубликовано</span>
               {uniqPublication.map((el) => (
-                <div className={style.filter_checkbox}>
+                <div key={el} className={style.filter_checkbox}>
                   <input
                     type="checkbox"
                     id={el}

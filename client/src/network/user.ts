@@ -9,8 +9,6 @@ export const userLogin = async (email: string, password: string) => {
   try {
     const res = await axios.post(loginUrl, { email, password });
 
-    console.log(res);
-
     if (res.statusText === 'OK') {
       localStorage.setItem('accessToken', res?.data);
     }
@@ -32,7 +30,7 @@ export const getUser = async () => {
     };
 
     const res = await axios.get(userProfileUrl, config);
-    console.log(res?.data);
+
     return res?.data;
   } catch (e: any) {
     console.log(e.message);

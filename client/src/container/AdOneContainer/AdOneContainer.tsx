@@ -13,7 +13,6 @@ const AdOneContainer = () => {
     try {
       dispatch(getAdOnePending());
       const result = await getAdOne(id);
-      console.log(result);
 
       if (result.status === 200) {
         const dataAd = result.data;
@@ -23,8 +22,6 @@ const AdOneContainer = () => {
         dispatch(getAdOneSuccess(dataAd));
       }
       if (result.response.status === 400) {
-        console.log(222);
-
         dispatch(getAdOneFail(result.response.data.message));
       } else {
         dispatch(getAdOneFail(result.message));

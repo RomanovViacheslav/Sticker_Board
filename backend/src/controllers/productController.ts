@@ -62,6 +62,7 @@ export async function getProductsUser(isAdmin, userId, limit, page, search) {
         where: { title: { [Op.iLike]: "%" + search + "%" } },
         limit,
         offset,
+        order: [["createdAt", "DESC"]],
       });
       return productUser;
     } else {
@@ -69,6 +70,7 @@ export async function getProductsUser(isAdmin, userId, limit, page, search) {
         where: { userId, title: { [Op.iLike]: "%" + search + "%" } },
         limit,
         offset,
+        order: [["createdAt", "DESC"]],
       });
 
       return productUser;

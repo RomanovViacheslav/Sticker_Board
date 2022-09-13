@@ -10,11 +10,19 @@ import { loginFail, loginPending, loginSuccess } from '../../../store/loginSlice
 import { userLogin } from '../../../network/user';
 import getUserProfile from '../../../store/userSlice/userActions';
 
-const AuthPage = () => {
-  const [errorAPI, setErrorAPI] = useState(false);
-  const { isLoading, isAuth, error } = useAppSelector((state) => state.login);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+type AuthPagePropsType = {
+  errorAPI: boolean;
+  sendData: (email: string, password: string) => void;
+  error: string;
+  isLoading: boolean;
+};
+
+const AuthPage = ({ errorAPI, sendData, error, isLoading }: AuthPagePropsType) => {
+  const onFinish = async (values: any) => {
+    const { email, password } = values;
+
+    sendData(email, password);
+  };
 
   return (
     <main className={style.content}>
@@ -22,26 +30,7 @@ const AuthPage = () => {
         <FormWrapper title="Hello, world!" subtitle="Пройдите авторизацию">
           <Form
             onFinish={async (values) => {
-              const { email, password } = values;
-              dispatch(loginPending());
-              try {
-                const response = await userLogin(email, password);
-
-                if (response.status === 'error') {
-                  dispatch(loginFail(response.message));
-                  setErrorAPI(true);
-                } else if (response === 'Network Error') {
-                  dispatch(loginFail('Ошибка сервера'));
-                  setErrorAPI(true);
-                } else {
-                  dispatch(loginSuccess());
-                  dispatch(getUserProfile());
-                  navigate('/');
-                }
-              } catch (e: unknown) {
-                dispatch(loginFail(e));
-                setErrorAPI(true);
-              }
+              await onFinish(values);
             }}
             className={style.form}>
             <FormItem

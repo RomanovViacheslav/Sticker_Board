@@ -15,7 +15,6 @@ const RegContainer = () => {
       dispatch(regPending());
 
       const result = await registration(Name, surName, email, password);
-      console.log(result);
 
       if (result.status === 'error') {
         dispatch(regError(result.message));

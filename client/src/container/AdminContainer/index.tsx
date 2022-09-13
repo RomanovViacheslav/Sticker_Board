@@ -24,7 +24,6 @@ const AdminContainer = () => {
     try {
       dispatch(getAdsPending());
       const result = await getAdsUser(limit, page, search);
-      console.log(result);
 
       if (result) {
         dispatch(getAdsSuccess(result.rows));

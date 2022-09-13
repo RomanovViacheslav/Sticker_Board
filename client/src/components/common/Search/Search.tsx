@@ -1,5 +1,5 @@
 import { log } from 'console';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { getValue } from '../../../store/searchValueSlice/searchValueSlice';
@@ -24,6 +24,15 @@ const Search = ({ value, setValue }: SearchPropsType) => {
   const onBlur = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length === 0) {
       setFocus(true);
+    }
+  };
+
+  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      dispatch(getValue(value));
+      navigate('/search', { state: value });
     }
   };
 
@@ -56,6 +65,7 @@ const Search = ({ value, setValue }: SearchPropsType) => {
         onChange={handler}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyDown={onKeyDown}
       />
 
       <div className={focus ? style.search_icon : style.search_icon_activ}>{iconSearch}</div>

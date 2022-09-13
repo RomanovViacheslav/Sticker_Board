@@ -41,7 +41,6 @@ const MainContainer = () => {
   const getProductPublic = async () => {
     try {
       const result = await getAdsPublic('9', page, category, '');
-      console.log(result);
 
       if (result) {
         dispatch(adsPublicSuccess(result.rows));

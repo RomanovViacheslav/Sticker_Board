@@ -22,7 +22,6 @@ const SearchContainer = () => {
     try {
       dispatch(getAdsPublicPending());
       const result = await getAdsPublic('6', page, '', value);
-      console.log(result);
 
       if (result) {
         dispatch(adsPublicSuccess(result.rows));
