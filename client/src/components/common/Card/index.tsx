@@ -21,7 +21,7 @@ const Card = ({ id, category, title, description, price, date, photo }: CardProp
         <div className={style.card__header}>
           <img
             className={style.card__img}
-            src={`http://localhost:3001/photo/${photo}`}
+            src={`${process.env.REACT_APP_API_URL}photo/${photo}`}
             alt={title}
           />
           <div className={style.card__category}>{category}</div>

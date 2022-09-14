@@ -77,8 +77,8 @@ const AddingPage = ({
       uid: '-1',
       name: ad.photo,
       status: 'done',
-      url: `http://localhost:3001/photo/${ad.photo}`,
-      thumbUrl: `http://localhost:3001/photo/${ad.photo}`,
+      url: `${process.env.REACT_APP_API_URL}photo/${ad.photo}`,
+      thumbUrl: `${process.env.REACT_APP_API_URL}photo/${ad.photo}`,
     },
   ];
 

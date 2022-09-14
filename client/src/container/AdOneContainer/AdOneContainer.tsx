@@ -16,7 +16,7 @@ const AdOneContainer = () => {
 
       if (result.status === 200) {
         const dataAd = result.data;
-        const image = `http://localhost:3001/photo/${dataAd.photo} `;
+        const image = `${process.env.REACT_APP_API_URL}photo/${dataAd.photo} `;
         dataAd.image = image;
 
         dispatch(getAdOneSuccess(dataAd));

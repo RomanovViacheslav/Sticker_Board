@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const createUrl = 'http://localhost:3001/add';
-const getAdsUserUrl = 'http://localhost:3001/product-user?';
-const deleteAdUserUrl = 'http://localhost:3001/product';
-const getAdOneUrl = 'http://localhost:3001/product';
-const updateAdUrl = 'http://localhost:3001/product';
-const getAdsPublicUrl = 'http://localhost:3001/product-public?';
-const getAdUserOneUrl = 'http://localhost:3001/product-user';
+const createUrl = `${process.env.REACT_APP_API_URL}add`;
+const getAdsUserUrl = `${process.env.REACT_APP_API_URL}product-user?`;
+const deleteAdUserUrl = `${process.env.REACT_APP_API_URL}product`;
+const getAdOneUrl = `${process.env.REACT_APP_API_URL}product`;
+const updateAdUrl = `${process.env.REACT_APP_API_URL}product`;
+const getAdsPublicUrl = `${process.env.REACT_APP_API_URL}product-public?`;
+const getAdUserOneUrl = `${process.env.REACT_APP_API_URL}product-user`;
 
 export const createAd = async (
   title: string,

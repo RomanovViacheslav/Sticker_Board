@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const loginUrl = 'http://localhost:3001/login';
-const userProfileUrl = 'http://localhost:3001/user';
-const logoutUrl = 'http://localhost:3001/logout';
-const regUrl = 'http://localhost:3001/reg';
+const loginUrl = `${process.env.REACT_APP_API_URL}login`;
+const userProfileUrl = `${process.env.REACT_APP_API_URL}user`;
+const logoutUrl = `${process.env.REACT_APP_API_URL}logout`;
+const regUrl = `${process.env.REACT_APP_API_URL}reg`;
 
 export const userLogin = async (email: string, password: string) => {
   try {
